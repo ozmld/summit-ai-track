@@ -55,7 +55,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-baseline gap-3">
                   <span className="num text-2xl text-[var(--accent)]">02</span>
-                  <span>Контест из 12 задач (с trap-версиями)</span>
+                  <span>Контест из 12 задач (4 с ловушкой для ИИ)</span>
                 </li>
                 <li className="flex items-baseline gap-3">
                   <span className="num text-2xl text-[var(--accent)]">03</span>
@@ -169,8 +169,8 @@ export default function Home() {
                 },
                 {
                   n: "D",
-                  t: "Trap-версия (бонус)",
-                  d: "Версия с prompt injection — учим школьника не доверять LLM слепо.",
+                  t: "Задача-ловушка (бонус)",
+                  d: "Вариант задачи с подвохом для ИИ — учим школьника не доверять LLM слепо.",
                 },
               ].map((b) => (
                 <div

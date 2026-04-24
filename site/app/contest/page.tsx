@@ -16,7 +16,7 @@ export default function ContestPage() {
         number="IV"
         eyebrow="Практика дня 1"
         title="Контест на 12 задач"
-        lead="Участники решали задачи с помощью LLM. В четырёх задачах спрятаны prompt injection — чтобы увидеть, как ИИ начинает галлюцинировать, если слепо ему доверять."
+        lead="Участники решали задачи с помощью LLM. В четырёх задачах спрятаны ловушки (prompt injection) — чтобы увидеть, как ИИ начинает галлюцинировать, если слепо ему доверять."
       />
 
       <Container className="py-10">
@@ -57,7 +57,7 @@ export default function ContestPage() {
                   </div>
                 </div>
                 {t.hasTrap && (
-                  <span className="tag tag-filled">TRAP</span>
+                  <span className="tag tag-filled">ЛОВУШКА</span>
                 )}
               </div>
               <h3 className="mt-4 serif text-lg leading-tight">{t.title}</h3>

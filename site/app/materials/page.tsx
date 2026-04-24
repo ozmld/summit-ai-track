@@ -41,7 +41,7 @@ export default function MaterialsPage() {
                 target="_blank"
                 className="btn"
               >
-                Разбор с trap-задачами
+                Разбор задач с ловушками
               </a>
               <a
                 href="/contest/easy_tasks.md"
@@ -99,7 +99,7 @@ export default function MaterialsPage() {
               </li>
               <li className="flex gap-3">
                 <span className="num text-[var(--accent)]">C</span>
-                <span>trap-задачи и памятка по prompt injection;</span>
+                <span>задачи-ловушки и памятка по prompt injection;</span>
               </li>
               <li className="flex gap-3">
                 <span className="num text-[var(--accent)]">D</span>
