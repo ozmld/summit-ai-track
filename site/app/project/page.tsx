@@ -143,13 +143,11 @@ export default function ProjectPage() {
               <div className="eyebrow mb-4">§ 4 · Жюри</div>
               <ul className="space-y-3">
                 {juries.map((j) => (
-                  <li key={j.fio}>
-                    <div className="serif text-base leading-tight">
-                      {j.fio}
-                    </div>
-                    <div className="text-xs text-[var(--ink-muted)] mt-0.5">
-                      {j.role}
-                    </div>
+                  <li
+                    key={j.fio}
+                    className="serif text-base leading-tight"
+                  >
+                    {j.fio}
                   </li>
                 ))}
               </ul>

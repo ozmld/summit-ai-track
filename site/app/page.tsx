@@ -197,12 +197,9 @@ export default function Home() {
               {juries.map((j) => (
                 <li
                   key={j.fio}
-                  className="border-b border-[var(--rule)] pb-3 last:border-0"
+                  className="serif text-lg leading-tight border-b border-[var(--rule)] pb-3 last:border-0"
                 >
-                  <div className="serif text-lg leading-tight">{j.fio}</div>
-                  <div className="text-xs text-[var(--ink-muted)] mt-1">
-                    {j.role}
-                  </div>
+                  {j.fio}
                 </li>
               ))}
             </ul>
