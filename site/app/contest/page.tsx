@@ -1,66 +1,72 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Container, Card, PageTitle } from "@/components/section";
+import { Container, PageHeader } from "@/components/section";
 import { tasks } from "@/lib/data/tasks";
 
-const subjectLabel: Record<string, { label: string; cls: string }> = {
-  math: { label: "Математика", cls: "chip-accent" },
-  phys: { label: "Физика", cls: "chip-warn" },
-  ai: { label: "ИИ / ML", cls: "chip-pink" },
+const subjectLabel: Record<string, string> = {
+  math: "Математика",
+  phys: "Физика",
+  ai: "ИИ / ML",
 };
 
 export default function ContestPage() {
   return (
-    <Container>
-      <PageTitle
+    <>
+      <PageHeader
+        number="IV"
         eyebrow="Практика дня 1"
-        title="Контест: 12 задач с ловушками для LLM"
-        description="Участники решали задачи с помощью LLM. В 4 из них были встроены prompt injection — чтобы увидеть, как ИИ начинает «галлюцинировать», если слепо ему доверять."
+        title="Контест на 12 задач"
+        lead="Участники решали задачи с помощью LLM. В четырёх задачах спрятаны prompt injection — чтобы увидеть, как ИИ начинает галлюцинировать, если слепо ему доверять."
       />
 
-      <div className="mb-8 flex flex-wrap gap-3">
-        <Link href="/leaderboard" className="btn btn-primary text-sm">
-          Лидерборд и анализ
-        </Link>
-        <a
-          href="/contest/tasks_with_traps.md"
-          target="_blank"
-          className="btn btn-ghost text-sm"
-        >
-          Полный разбор (markdown)
-        </a>
-        <a
-          href="/contest/easy_tasks.md"
-          target="_blank"
-          className="btn btn-ghost text-sm"
-        >
-          Разминочные задачи
-        </a>
-      </div>
+      <Container className="py-10">
+        <div className="flex flex-wrap items-center gap-3 border-b border-[var(--rule)] pb-8 mb-10">
+          <Link href="/leaderboard" className="btn btn-accent">
+            Лидерборд и анализ →
+          </Link>
+          <a
+            href="/contest/tasks_with_traps.md"
+            target="_blank"
+            className="btn"
+          >
+            Полный разбор (markdown)
+          </a>
+          <a
+            href="/contest/easy_tasks.md"
+            target="_blank"
+            className="btn"
+          >
+            Разминочные задачи
+          </a>
+        </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {tasks.map((t) => {
-          const s = subjectLabel[t.subject];
-          return (
-            <Card key={t.code} className="overflow-hidden">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <span className={`chip ${s.cls}`}>{s.label}</span>
-                  <span className="font-mono text-xs text-[var(--muted)]">
-                    {t.code}
+        <div className="grid gap-0 md:grid-cols-2 lg:grid-cols-3">
+          {tasks.map((t, i) => (
+            <article
+              key={t.code}
+              className="border border-[var(--rule)] -ml-px -mt-px p-5"
+            >
+              <div className="flex items-baseline justify-between border-b border-[var(--ink)] pb-2">
+                <div className="flex items-baseline gap-3">
+                  <span className="num text-2xl text-[var(--accent)]">
+                    {String(i + 1).padStart(2, "0")}
                   </span>
+                  <div>
+                    <div className="eyebrow">{subjectLabel[t.subject]}</div>
+                    <div className="mono text-xs mt-0.5">{t.code}</div>
+                  </div>
                 </div>
                 {t.hasTrap && (
-                  <span className="chip chip-warn">trap</span>
+                  <span className="tag tag-filled">TRAP</span>
                 )}
               </div>
-              <h3 className="mt-3 font-semibold">{t.title}</h3>
+              <h3 className="mt-4 serif text-lg leading-tight">{t.title}</h3>
               {t.hasTrap && t.trapKind && (
-                <p className="mt-1 text-xs text-[var(--muted)]">
+                <p className="mt-1 text-xs italic text-[var(--ink-muted)]">
                   ловушка: {t.trapKind}
                 </p>
               )}
-              <div className="mt-4 overflow-hidden rounded-xl border border-[var(--border)] bg-white">
+              <div className="mt-4 border border-[var(--rule)] bg-white overflow-hidden">
                 <Image
                   src={t.image}
                   alt={`Условие ${t.code}`}
@@ -69,11 +75,11 @@ export default function ContestPage() {
                   className="h-auto w-full object-contain"
                 />
               </div>
-              <div className="mt-3 flex gap-2 text-xs">
+              <div className="mt-3 flex gap-4 text-xs">
                 <a
                   href={t.image}
                   target="_blank"
-                  className="text-[var(--accent-2)] hover:underline"
+                  className="link-underline"
                 >
                   открыть картинку
                 </a>
@@ -81,16 +87,16 @@ export default function ContestPage() {
                   <a
                     href="/contest/ai_3.csv"
                     target="_blank"
-                    className="text-[var(--accent-2)] hover:underline"
+                    className="link-underline"
                   >
-                    csv с данными (с инъекцией)
+                    csv с инъекцией
                   </a>
                 )}
               </div>
-            </Card>
-          );
-        })}
-      </div>
-    </Container>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </>
   );
 }

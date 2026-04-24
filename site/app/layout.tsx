@@ -1,17 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Lora, JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin", "cyrillic"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const lora = Lora({
+  variable: "--font-lora",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+  style: ["normal", "italic"],
+});
+
+const jbmono = JetBrains_Mono({
+  variable: "--font-jbmono",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +33,7 @@ export const metadata: Metadata = {
 
 const nav = [
   { href: "/", label: "Главная" },
-  { href: "/schedule", label: "Расписание" },
+  { href: "/schedule", label: "Программа" },
   { href: "/teams", label: "Команды" },
   { href: "/project", label: "Проект" },
   { href: "/contest", label: "Контест" },
@@ -41,73 +50,127 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${lora.variable} ${jbmono.variable} antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[rgba(11,13,23,0.75)] backdrop-blur">
-          <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-5 py-3">
-            <Link href="/" className="flex items-center gap-2 font-semibold">
-              <span className="inline-block h-2.5 w-2.5 rounded-full bg-gradient-to-br from-[var(--accent)] to-[var(--accent-2)]" />
-              <span className="tracking-tight">{site.short}</span>
-              <span className="hidden text-[var(--muted)] text-sm sm:inline">
-                / трек ИИ
-              </span>
-            </Link>
-            <nav className="hidden md:flex items-center gap-1 text-sm">
-              {nav.map((n) => (
-                <Link
-                  key={n.href}
-                  href={n.href}
-                  className="px-3 py-1.5 rounded-full text-[var(--muted)] hover:text-white hover:bg-white/5 transition"
-                >
-                  {n.label}
-                </Link>
-              ))}
-            </nav>
-            <a
-              href={site.driveUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-primary text-sm hidden sm:inline-flex"
-            >
-              Drive с материалами
-            </a>
+        <div className="w-full bg-[var(--ink)] text-[var(--paper)] text-xs">
+          <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2">
+            <span className="mono tracking-wider uppercase">
+              № II · {site.city} · {site.dates}
+            </span>
+            <span className="hidden sm:inline mono tracking-wider uppercase">
+              Ежедневный выпуск
+            </span>
           </div>
-          <div className="md:hidden border-t border-[var(--border)] overflow-x-auto">
-            <div className="mx-auto flex w-full max-w-6xl gap-1 px-3 py-2 text-sm">
-              {nav.map((n) => (
-                <Link
-                  key={n.href}
-                  href={n.href}
-                  className="px-3 py-1 whitespace-nowrap rounded-full text-[var(--muted)] hover:text-white hover:bg-white/5 transition"
-                >
-                  {n.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </header>
-        <main className="flex-1">{children}</main>
-        <footer className="mt-24 border-t border-[var(--border)] py-10 text-sm text-[var(--muted)]">
-          <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              {site.short} · {site.city} · {site.dates}
-            </div>
-            <div className="flex gap-4">
-              <Link href="/project" className="hover:text-white">
-                Проект
-              </Link>
-              <Link href="/lectures" className="hover:text-white">
-                Лекции
+        </div>
+
+        <header className="border-b-2 border-[var(--ink)]">
+          <div className="mx-auto max-w-6xl px-5 py-6 sm:py-10">
+            <div className="flex items-baseline justify-between gap-6">
+              <Link href="/" className="block">
+                <div className="eyebrow mb-1">Трек ИИ</div>
+                <div className="display text-3xl sm:text-5xl">
+                  Саммит{" "}
+                  <span className="display-italic text-[var(--accent)]">
+                    талантов
+                  </span>
+                </div>
               </Link>
               <a
                 href={site.driveUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-white"
+                className="btn btn-accent hidden md:inline-flex"
               >
-                Google Drive
+                Drive саммита ↗
               </a>
+            </div>
+          </div>
+          <div className="border-t border-[var(--rule)]">
+            <nav className="mx-auto max-w-6xl overflow-x-auto">
+              <ul className="flex items-center gap-0 px-2 text-sm">
+                {nav.map((n, i) => (
+                  <li key={n.href} className="flex items-center">
+                    <Link
+                      href={n.href}
+                      className="block px-3 py-3 whitespace-nowrap uppercase tracking-widest text-[11px] font-medium hover:text-[var(--accent)]"
+                    >
+                      {n.label}
+                    </Link>
+                    {i < nav.length - 1 && (
+                      <span className="text-[var(--rule)]">·</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </header>
+
+        <main className="flex-1">{children}</main>
+
+        <footer className="mt-24 border-t-2 border-[var(--ink)]">
+          <div className="mx-auto max-w-6xl px-5 py-10 grid gap-8 sm:grid-cols-3">
+            <div>
+              <div className="eyebrow mb-3">Колофон</div>
+              <p className="serif italic text-base">
+                II Саммит талантов для учителей. Астана, {site.dates}.
+              </p>
+            </div>
+            <div>
+              <div className="eyebrow mb-3">Навигация</div>
+              <ul className="space-y-1 text-sm">
+                <li>
+                  <Link href="/project" className="link-underline">
+                    Командный проект
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/lectures" className="link-underline">
+                    Лекции саммита
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/leaderboard" className="link-underline">
+                    Лидерборд контеста
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <div className="eyebrow mb-3">Ресурсы</div>
+              <ul className="space-y-1 text-sm">
+                <li>
+                  <a
+                    href={site.driveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="link-underline"
+                  >
+                    Google Drive саммита ↗
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`https://github.com/${site.github}/summit-ai-track`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="link-underline"
+                  >
+                    Репозиторий сайта ↗
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-[var(--rule)]">
+            <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 text-xs text-[var(--ink-muted)]">
+              <span className="mono uppercase tracking-widest">
+                ozmld / 2026
+              </span>
+              <span className="mono uppercase tracking-widest">
+                Set in Lora &amp; Inter
+              </span>
             </div>
           </div>
         </footer>

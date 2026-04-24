@@ -1,11 +1,11 @@
-import { Container, Card, PageTitle } from "@/components/section";
+import { Container, PageHeader, Panel } from "@/components/section";
 import { results, taskColumns } from "@/lib/data/results";
 
 function cellClass(value?: string) {
-  if (!value) return "text-white/20";
-  if (value === "+") return "text-[var(--accent-2)] font-semibold";
-  if (value.startsWith("+")) return "text-white";
-  if (value.startsWith("-")) return "text-[var(--accent-3)]";
+  if (!value) return "text-[var(--rule)]";
+  if (value === "+") return "text-[var(--secondary)] font-semibold";
+  if (value.startsWith("+")) return "text-[var(--ink)]";
+  if (value.startsWith("-")) return "text-[var(--accent)]";
   return "";
 }
 
@@ -19,124 +19,114 @@ export default function LeaderboardPage() {
     }
   }
 
-  const top = [...taskColumns]
+  const easiest = [...taskColumns]
     .sort((a, b) => solved[b] - solved[a])
     .slice(0, 3);
-  const hard = [...taskColumns]
-    .filter((c) => solved[c] >= 0)
+  const hardest = [...taskColumns]
     .sort((a, b) => solved[a] - solved[b])
     .slice(0, 4);
 
   return (
-    <Container>
-      <PageTitle
+    <>
+      <PageHeader
+        number="V"
         eyebrow="Контест дня 1"
         title="Лидерборд и анализ"
-        description="Сортировка — по числу решённых задач, затем по штрафу (меньше — лучше)."
+        lead="Сортировка по числу решённых задач, затем по штрафу (меньше — лучше)."
       />
 
-      <div className="mb-8 grid gap-4 md:grid-cols-3">
-        <Card>
-          <div className="text-xs uppercase tracking-widest text-[var(--muted)]">
-            Участников
-          </div>
-          <div className="mt-2 text-3xl font-semibold">{results.length}</div>
-        </Card>
-        <Card>
-          <div className="text-xs uppercase tracking-widest text-[var(--muted)]">
-            Самые решаемые
-          </div>
-          <div className="mt-2 flex gap-2 flex-wrap">
-            {top.map((c) => (
-              <span key={c} className="chip chip-accent">
-                {c} · {solved[c]}
-              </span>
-            ))}
-          </div>
-        </Card>
-        <Card>
-          <div className="text-xs uppercase tracking-widest text-[var(--muted)]">
-            Killer-задачи
-          </div>
-          <div className="mt-2 flex gap-2 flex-wrap">
-            {hard.map((c) => (
-              <span key={c} className="chip chip-pink">
-                {c} · {solved[c]}
-              </span>
-            ))}
-          </div>
-        </Card>
-      </div>
-
-      <Card className="overflow-x-auto p-0">
-        <table className="min-w-full text-sm">
-          <thead>
-            <tr className="text-left text-[var(--muted)] border-b border-[var(--border)]">
-              <th className="px-4 py-3 font-medium">#</th>
-              <th className="px-4 py-3 font-medium">Участник</th>
-              {taskColumns.map((c) => (
-                <th
-                  key={c}
-                  className="px-2 py-3 font-mono text-xs text-center"
-                >
-                  {c}
-                </th>
+      <Container className="py-10">
+        <div className="grid gap-0 sm:grid-cols-3 mb-10">
+          <Panel>
+            <div className="eyebrow">Участников</div>
+            <div className="num text-6xl mt-2">{results.length}</div>
+          </Panel>
+          <Panel>
+            <div className="eyebrow mb-3">Самые решаемые</div>
+            <ul className="space-y-1">
+              {easiest.map((c) => (
+                <li key={c} className="flex justify-between items-baseline">
+                  <span className="mono text-sm">{c}</span>
+                  <span className="num">{solved[c]}</span>
+                </li>
               ))}
-              <th className="px-4 py-3 font-medium text-right">Score</th>
-              <th className="px-4 py-3 font-medium text-right">Penalty</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map((r) => (
-              <tr
-                key={r.user}
-                className="border-b border-[var(--border)] last:border-0 hover:bg-white/[0.02]"
-              >
-                <td className="px-4 py-3 font-mono text-[var(--muted)]">
-                  {r.place}
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap">{r.user}</td>
-                {taskColumns.map((c) => (
-                  <td
-                    key={c}
-                    className={`px-2 py-3 text-center font-mono text-xs ${cellClass(r.tasks[c])}`}
-                  >
-                    {r.tasks[c] ?? "·"}
-                  </td>
-                ))}
-                <td className="px-4 py-3 text-right font-semibold">
-                  {r.score}
-                </td>
-                <td className="px-4 py-3 text-right text-[var(--muted)]">
-                  {r.penalty}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Card>
+            </ul>
+          </Panel>
+          <Panel>
+            <div className="eyebrow mb-3">Killer-задачи</div>
+            <ul className="space-y-1">
+              {hardest.map((c) => (
+                <li key={c} className="flex justify-between items-baseline">
+                  <span className="mono text-sm">{c}</span>
+                  <span className="num text-[var(--accent)]">{solved[c]}</span>
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        </div>
 
-      <Card className="mt-8">
-        <h2 className="text-xl font-semibold">Как читать таблицу</h2>
-        <ul className="mt-4 space-y-2 text-sm text-[var(--muted)]">
-          <li>
-            <span className="text-[var(--accent-2)] font-mono">+</span> — задача
-            решена с первой попытки.
-          </li>
-          <li>
-            <span className="text-white font-mono">+N</span> — решена, но
-            потрачено N неудачных попыток до этого.
-          </li>
-          <li>
-            <span className="text-[var(--accent-3)] font-mono">-N</span> —
-            задача не сдана, потрачено N неверных попыток.
-          </li>
-          <li>
-            <span className="text-white/30 font-mono">·</span> — задача не
-            попыталась сдаваться.
-          </li>
-        </ul>
-      </Card>
-    </Container>
+        <div className="overflow-x-auto">
+          <table className="editorial">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Участник</th>
+                {taskColumns.map((c) => (
+                  <th key={c} className="mono text-center">
+                    {c}
+                  </th>
+                ))}
+                <th className="text-right">Score</th>
+                <th className="text-right">Penalty</th>
+              </tr>
+            </thead>
+            <tbody>
+              {results.map((r) => (
+                <tr key={r.user}>
+                  <td className="num text-[var(--ink-muted)]">{r.place}</td>
+                  <td className="whitespace-nowrap">{r.user}</td>
+                  {taskColumns.map((c) => (
+                    <td
+                      key={c}
+                      className={`text-center mono text-xs ${cellClass(r.tasks[c])}`}
+                    >
+                      {r.tasks[c] ?? "·"}
+                    </td>
+                  ))}
+                  <td className="text-right num font-semibold">
+                    {r.score}
+                  </td>
+                  <td className="text-right num text-[var(--ink-muted)]">
+                    {r.penalty}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mt-10 border-t border-[var(--ink)] pt-5 text-sm text-[var(--ink-muted)]">
+          <div className="eyebrow mb-3">Легенда</div>
+          <ul className="grid gap-2 sm:grid-cols-4">
+            <li>
+              <span className="mono text-[var(--secondary)] font-semibold">
+                +
+              </span>{" "}
+              — решено с первой попытки
+            </li>
+            <li>
+              <span className="mono">+N</span> — решено после N неверных
+            </li>
+            <li>
+              <span className="mono text-[var(--accent)]">−N</span> — не
+              сдано, N попыток
+            </li>
+            <li>
+              <span className="mono">·</span> — не пыталась сдавать
+            </li>
+          </ul>
+        </div>
+      </Container>
+    </>
   );
 }
