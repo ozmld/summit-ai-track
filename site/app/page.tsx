@@ -4,6 +4,7 @@ import { schedule } from "@/lib/data/schedule";
 import { teams } from "@/lib/data/teams";
 import { juries } from "@/lib/data/juries";
 import { site } from "@/lib/site";
+import { day2Pairs } from "@/lib/data/day2";
 
 export default function Home() {
   const totalMembers = teams.reduce((s, t) => s + t.members.length, 0);
@@ -67,6 +68,59 @@ export default function Home() {
                 </li>
               </ol>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-b-2 border-[var(--ink)] bg-[var(--paper-2)]/40">
+        <Container className="py-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
+            <div>
+              <div className="eyebrow">Сегодняшний выпуск</div>
+              <div className="section-number mt-2">№ 02</div>
+              <h2 className="display text-4xl sm:text-5xl mt-2">
+                День 2.{" "}
+                <span className="display-italic text-[var(--accent)]">
+                  Инструменты и методика
+                </span>
+              </h2>
+              <p className="serif italic text-[var(--ink-muted)] mt-4">
+                25 апреля · четыре пары подряд · к вечеру у всех 8 команд
+                готовы Разделы 0–2 их модуля.
+              </p>
+              <Link href="/days/2" className="btn btn-accent mt-6">
+                Открыть план дня →
+              </Link>
+            </div>
+            <ol className="border-t border-[var(--ink)]">
+              {day2Pairs.map((p, i) => (
+                <li
+                  key={p.slug}
+                  className="grid grid-cols-[60px_110px_1fr_70px] gap-4 items-baseline border-b border-[var(--rule-soft)] py-3"
+                >
+                  <span className="num text-2xl text-[var(--accent)]">
+                    П{i + 1}
+                  </span>
+                  <span className="mono text-[11px] uppercase tracking-widest text-[var(--ink-muted)]">
+                    {p.minutes} мин
+                  </span>
+                  <span>
+                    <Link
+                      href={`/days/2#${p.slug}`}
+                      className="serif text-lg leading-tight link-underline"
+                    >
+                      {p.title}
+                    </Link>
+                    <div className="text-xs text-[var(--ink-muted)] mt-1">
+                      {p.speakers}
+                    </div>
+                  </span>
+                  <span className="text-right mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
+                    {p.code}
+                  </span>
+                </li>
+              ))}
+            </ol>
           </div>
         </Container>
       </section>

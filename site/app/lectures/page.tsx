@@ -8,7 +8,7 @@ export default function LecturesPage() {
         number="VI"
         eyebrow="Материалы"
         title="Лекции саммита"
-        lead="Слайды в формате PDF. Часть лекций ещё в подготовке."
+        lead="Слайды, конспекты и ноутбуки по каждой паре. Часть материалов появится в процессе саммита."
       />
       <Container className="py-12">
         <div className="grid gap-0 md:grid-cols-2">
@@ -22,12 +22,15 @@ export default function LecturesPage() {
                   <span className="num text-3xl text-[var(--accent)]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="eyebrow">День {l.day}</span>
+                  <span className="eyebrow">
+                    {l.code ?? `День ${l.day}`}
+                    {l.minutes ? ` · ${l.minutes} мин` : ""}
+                  </span>
                 </div>
                 <span
                   className={`tag ${l.status === "ready" ? "tag-filled" : "tag-accent"}`}
                 >
-                  {l.status === "ready" ? "PDF готов" : "скоро"}
+                  {l.status === "ready" ? "готово" : "скоро"}
                 </span>
               </div>
               <h2 className="mt-5 display text-3xl leading-tight">
@@ -37,8 +40,9 @@ export default function LecturesPage() {
                 {l.speaker}
               </div>
               <p className="mt-4 text-sm leading-relaxed">{l.summary}</p>
-              {l.pdf && (
-                <div className="mt-6 flex gap-2">
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                {l.pdf && (
                   <a
                     href={l.pdf}
                     target="_blank"
@@ -46,11 +50,18 @@ export default function LecturesPage() {
                   >
                     Открыть PDF ↗
                   </a>
-                  <a href={l.pdf} download className="btn">
-                    Скачать
+                )}
+                {l.notebooks?.map((n) => (
+                  <a
+                    key={n.href}
+                    href={n.href}
+                    target="_blank"
+                    className="btn"
+                  >
+                    {n.label} ↗
                   </a>
-                </div>
-              )}
+                ))}
+              </div>
             </article>
           ))}
         </div>

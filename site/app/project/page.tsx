@@ -1,32 +1,72 @@
+import Link from "next/link";
 import { Container, PageHeader, Panel } from "@/components/section";
 import { juries } from "@/lib/data/juries";
 import { site } from "@/lib/site";
 
-const stages = [
+const sections = [
   {
-    n: "A",
-    title: "Авторская задача",
-    body: "Оригинальная задача уровня ВсОШ по ИИ (школьный / муниципальный этап). Обязательно: формулировка, чистый ответ, полное решение, формат ввода/вывода.",
+    n: "0",
+    title: "Шапка модуля",
+    body: "Название модуля, состав команды, тема одной строкой, тип задачи (математическая / алгоритмическая / концептуальная / с кодом).",
+    when: "Д2П1 — последние 5 минут + межпарное время",
   },
   {
-    n: "B",
-    title: "Разбор для ученика",
-    body: "Пошаговый разбор: как подступиться, какие идеи пробовать, какие ошибки типичны, какие подсказки дать, если застрял.",
+    n: "1",
+    title: "Условие задачи",
+    body: "Авторская задача уровня ВсОШ по ИИ (школьный / муниципальный этап). Данные → что дано → что найти → формат ввода-вывода. Без решения.",
+    when: "Д2П4 — первые 25 минут работы",
   },
   {
-    n: "C",
+    n: "2",
+    title: "Решение и ответ",
+    body: "Полное решение с ходом рассуждения + чистый ответ в оговоренном формате. Численные задачи рекомендуем проверить в Colab.",
+    when: "Д2П4 — вторая половина пары",
+  },
+  {
+    n: "3",
+    title: "Методичка для ученика",
+    body: "Пошаговый разбор: как подступиться к задаче, какие идеи пробовать, какие ошибки типичны, какие подсказки давать, если застрял.",
+    when: "Д3 — первая пара проекта",
+  },
+  {
+    n: "4",
     title: "Гайд для учителя",
     body: "Как провести занятие: тайминг, вопросы для класса, критерии оценивания, как расширять задачу до проекта или урока.",
+    when: "Д3 — вторая пара проекта",
   },
   {
-    n: "D",
-    title: "Задача-ловушка (опционально, бонус)",
-    body: "Версия задачи с подвохом для ИИ: ложный авторитет, инъекция в данных, роль-бот и т.п. Показывает ученику, что слепо копировать ответ у LLM нельзя.",
+    n: "5",
+    title: "Задача-ловушка (опционально)",
+    body: "Вариант задачи с подвохом для ИИ: ложный авторитет, инъекция в данных, роль-бот. Если взят буст «ЛЛМ» — обязательный артефакт.",
+    when: "Д3 — в процессе финализации",
+  },
+];
+
+const boosts = [
+  {
+    code: "Л",
+    title: "Устойчивость к LLM",
+    body: "Команда делает задачу-ловушку (Раздел 5) и описывает, как именно ломается ChatGPT / DeepSeek на ней.",
   },
   {
-    n: "E",
-    title: "Защита",
-    body: "7 минут презентация + 3 минуты вопросов от жюри в день 3.",
+    code: "К",
+    title: "Реальный кейс",
+    body: "Задача привязана к реальной истории, новости или данным — с источником. Учитель легко рассказывает «зачем».",
+  },
+  {
+    code: "С",
+    title: "Серия",
+    body: "К задаче прилагается продолжение: 2–3 связанные задачи возрастающей сложности.",
+  },
+  {
+    code: "В",
+    title: "Визуал",
+    body: "В условии и/или разборе есть картинка / схема / график, сделанные командой.",
+  },
+  {
+    code: "И",
+    title: "Интерактив",
+    body: "Есть ноутбук Colab / Jupyter / веб-демо, с которым ученик может поиграться руками.",
   },
 ];
 
@@ -35,7 +75,7 @@ const rubric = [
   { item: "Корректность и полнота решения", points: 20 },
   { item: "Качество методички для ученика", points: 20 },
   { item: "Гайд для учителя", points: 20 },
-  { item: "Презентация и защита", points: 10 },
+  { item: "Peer review от коллег", points: 20 },
 ];
 
 const formats = [
@@ -67,12 +107,33 @@ export default function ProjectPage() {
         lead="За два дня каждая команда собирает законченный учебный модуль, с которым учитель может прийти в класс и провести 1–2 урока подготовки к ВсОШ по ИИ."
       />
 
-      <Container className="py-12">
+      <Container className="py-10">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 border-b border-[var(--rule)] pb-10">
+          <div>
+            <div className="num text-5xl">5</div>
+            <div className="eyebrow mt-2">Обязательных разделов</div>
+          </div>
+          <div>
+            <div className="num text-5xl">5</div>
+            <div className="eyebrow mt-2">Бустов на выбор</div>
+          </div>
+          <div>
+            <div className="num text-5xl">+5</div>
+            <div className="eyebrow mt-2">Баллов за каждый буст</div>
+          </div>
+          <div>
+            <div className="num text-5xl">100</div>
+            <div className="eyebrow mt-2">Итоговый максимум</div>
+          </div>
+        </div>
+      </Container>
+
+      <Container className="py-6">
         <div className="grid gap-12 lg:grid-cols-[2fr_1fr]">
           <section>
-            <div className="eyebrow mb-3">§ 1 · Этапы работы</div>
-            <ol className="space-y-8">
-              {stages.map((s) => (
+            <div className="eyebrow mb-3">§ 1 · Разделы модуля</div>
+            <ol className="space-y-6">
+              {sections.map((s) => (
                 <li
                   key={s.n}
                   className="grid grid-cols-[60px_1fr] gap-4 border-t border-[var(--rule)] pt-5"
@@ -85,13 +146,44 @@ export default function ProjectPage() {
                     <p className="mt-2 text-[15px] text-[var(--ink-muted)] leading-relaxed">
                       {s.body}
                     </p>
+                    <div className="mt-2 mono text-[11px] uppercase tracking-widest text-[var(--accent)]">
+                      когда: {s.when}
+                    </div>
                   </div>
                 </li>
               ))}
             </ol>
 
             <div className="mt-16">
-              <div className="eyebrow mb-3">§ 2 · Форматы задач на выбор</div>
+              <div className="eyebrow mb-3">§ 2 · Меню бустов (опционально)</div>
+              <p className="text-sm text-[var(--ink-muted)] leading-relaxed mb-5">
+                Команда может взять любое количество бустов из пяти. Каждый
+                добавляет <span className="text-[var(--accent)]">+5 баллов</span>{" "}
+                к итогу при условии, что буст действительно реализован.
+                Не обязательны, но увеличивают шанс «приза учителей».
+              </p>
+              <div className="grid gap-0 sm:grid-cols-2">
+                {boosts.map((b) => (
+                  <div
+                    key={b.code}
+                    className="border border-[var(--rule)] -ml-px -mt-px p-5"
+                  >
+                    <div className="flex items-baseline gap-3">
+                      <span className="num text-3xl text-[var(--accent)]">
+                        {b.code}
+                      </span>
+                      <span className="serif text-xl">{b.title}</span>
+                    </div>
+                    <p className="mt-2 text-sm text-[var(--ink-muted)]">
+                      {b.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-16">
+              <div className="eyebrow mb-3">§ 3 · Форматы задач на выбор</div>
               <div className="grid gap-0 sm:grid-cols-2">
                 {formats.map((f) => (
                   <div
@@ -106,11 +198,47 @@ export default function ProjectPage() {
                 ))}
               </div>
             </div>
+
+            <div className="mt-16">
+              <div className="eyebrow mb-3">§ 4 · Защита — peer review</div>
+              <p className="serif text-lg leading-snug">
+                Классической презентации не будет. Вместо неё на Д3П2 каждая
+                команда публикует готовый модуль на сайте, и учителя оценивают
+                модули коллег по 4 шкалам + свободный комментарий. Жюри
+                параллельно формирует свои оценки.
+              </p>
+              <ul className="mt-5 space-y-2 text-sm">
+                <li className="border-b border-[var(--rule-soft)] pb-2">
+                  <span className="mono text-[11px] uppercase tracking-widest text-[var(--accent)]">
+                    А.
+                  </span>{" "}
+                  Полезно мне как учителю (0–5).
+                </li>
+                <li className="border-b border-[var(--rule-soft)] pb-2">
+                  <span className="mono text-[11px] uppercase tracking-widest text-[var(--accent)]">
+                    Б.
+                  </span>{" "}
+                  Понятность методички ученика (0–5).
+                </li>
+                <li className="border-b border-[var(--rule-soft)] pb-2">
+                  <span className="mono text-[11px] uppercase tracking-widest text-[var(--accent)]">
+                    В.
+                  </span>{" "}
+                  Оригинальность задачи (0–5).
+                </li>
+                <li className="border-b border-[var(--rule-soft)] pb-2">
+                  <span className="mono text-[11px] uppercase tracking-widest text-[var(--accent)]">
+                    Г.
+                  </span>{" "}
+                  Хочу взять в класс (да / нет).
+                </li>
+              </ul>
+            </div>
           </section>
 
           <aside className="space-y-8">
             <Panel>
-              <div className="eyebrow mb-4">§ 3 · Рубрикатор оценки</div>
+              <div className="eyebrow mb-4">§ 5 · Рубрикатор</div>
               <table className="editorial text-sm">
                 <tbody>
                   {rubric.map((r) => (
@@ -121,10 +249,10 @@ export default function ProjectPage() {
                   ))}
                   <tr>
                     <td className="text-[var(--ink-muted)] italic">
-                      Бонус: задача-ловушка
+                      Бусты (до 5 штук)
                     </td>
                     <td className="text-right num text-[var(--ink-muted)]">
-                      +10
+                      +5 каждый
                     </td>
                   </tr>
                 </tbody>
@@ -132,7 +260,7 @@ export default function ProjectPage() {
                   <tr>
                     <td className="serif text-lg pt-4">Итого</td>
                     <td className="text-right num text-lg pt-4 text-[var(--accent)]">
-                      100 (+10)
+                      100 (+25)
                     </td>
                   </tr>
                 </tfoot>
@@ -140,13 +268,40 @@ export default function ProjectPage() {
             </Panel>
 
             <Panel>
-              <div className="eyebrow mb-4">§ 4 · Жюри</div>
+              <div className="eyebrow mb-4">§ 6 · Шаблон Doc</div>
+              <p className="text-sm text-[var(--ink-muted)] mb-4 leading-relaxed">
+                Скачайте шаблон и скопируйте в вашу папку на Google Drive —
+                все 5 разделов с подсказками и чек-листом.
+              </p>
+              <a
+                href="/project/module-template.md"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-accent"
+              >
+                Скачать шаблон модуля ↗
+              </a>
+            </Panel>
+
+            <Panel>
+              <div className="eyebrow mb-4">§ 7 · Тайминг по дням</div>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <Link href="/days/2" className="link-underline">
+                    День 2 — Разделы 0, 1, 2 →
+                  </Link>
+                </li>
+                <li className="text-[var(--ink-muted)]">
+                  День 3 — Разделы 3, 4, 5 + peer review
+                </li>
+              </ul>
+            </Panel>
+
+            <Panel>
+              <div className="eyebrow mb-4">§ 8 · Жюри</div>
               <ul className="space-y-3">
                 {juries.map((j) => (
-                  <li
-                    key={j.fio}
-                    className="serif text-base leading-tight"
-                  >
+                  <li key={j.fio} className="serif text-base leading-tight">
                     {j.fio}
                   </li>
                 ))}
