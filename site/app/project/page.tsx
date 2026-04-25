@@ -268,19 +268,29 @@ export default function ProjectPage() {
             </Panel>
 
             <Panel>
-              <div className="eyebrow mb-4">§ 6 · Шаблон Doc</div>
+              <div className="eyebrow mb-4">§ 6 · Материалы команды</div>
               <p className="text-sm text-[var(--ink-muted)] mb-4 leading-relaxed">
-                Скачайте шаблон и скопируйте в вашу папку на Google Drive —
-                все 5 разделов с подсказками и чек-листом.
+                Гайд для учителей — куда заливать, как работать с папкой,
+                как сдавать модуль. Шаблон — заготовка всех пяти разделов.
               </p>
-              <a
-                href="/project/module-template.md"
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-accent"
-              >
-                Скачать шаблон модуля ↗
-              </a>
+              <div className="flex flex-col gap-2">
+                <a
+                  href="/project/team-guide.md"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-accent"
+                >
+                  Гайд для учителей ↗
+                </a>
+                <a
+                  href="/project/module-template.md"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn"
+                >
+                  Шаблон модуля ↗
+                </a>
+              </div>
             </Panel>
 
             <Panel>

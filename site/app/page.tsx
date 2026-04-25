@@ -96,13 +96,10 @@ export default function Home() {
               {day2Pairs.map((p, i) => (
                 <li
                   key={p.slug}
-                  className="grid grid-cols-[60px_110px_1fr_70px] gap-4 items-baseline border-b border-[var(--rule-soft)] py-3"
+                  className="grid grid-cols-[50px_1fr_70px] gap-4 items-baseline border-b border-[var(--rule-soft)] py-3"
                 >
                   <span className="num text-2xl text-[var(--accent)]">
                     П{i + 1}
-                  </span>
-                  <span className="mono text-[11px] uppercase tracking-widest text-[var(--ink-muted)]">
-                    {p.minutes} мин
                   </span>
                   <span>
                     <Link
