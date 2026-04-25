@@ -114,37 +114,6 @@ export default function MaterialsPage() {
 
           <Panel className="-ml-px -mt-px">
             <div className="eyebrow">§ 4</div>
-            <h2 className="mt-2 display text-3xl">Контест Дня 1</h2>
-            <p className="mt-3 text-sm leading-relaxed">
-              Условия всех 12 задач, прямые ссылки на разбор ловушек для
-              LLM и результаты.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <Link href="/contest" className="btn btn-accent">
-                Все задачи →
-              </Link>
-              <Link href="/leaderboard" className="btn">
-                Лидерборд
-              </Link>
-              <a
-                href="/contest/tasks_with_traps.md"
-                target="_blank"
-                className="btn"
-              >
-                Разбор ловушек
-              </a>
-              <a
-                href="/contest/easy_tasks.md"
-                target="_blank"
-                className="btn"
-              >
-                Разминочные
-              </a>
-            </div>
-          </Panel>
-
-          <Panel className="-ml-px -mt-px">
-            <div className="eyebrow">§ 5</div>
             <h2 className="mt-2 display text-3xl">Чек-лист учителю</h2>
             <p className="mt-3 text-sm leading-relaxed">
               Что берём с саммита домой:
@@ -156,33 +125,17 @@ export default function MaterialsPage() {
               </li>
               <li className="flex gap-3">
                 <span className="num text-[var(--accent)]">B</span>
-                <span>модули других команд — 8 штук в сумме;</span>
+                <span>модули других 7 команд — 8 штук в сумме;</span>
               </li>
               <li className="flex gap-3">
                 <span className="num text-[var(--accent)]">C</span>
-                <span>задачи-ловушки и памятка по prompt injection;</span>
+                <span>ноутбуки ML-практикума и PDF лекций;</span>
               </li>
               <li className="flex gap-3">
                 <span className="num text-[var(--accent)]">D</span>
-                <span>архив ВсОШ по ИИ (подборка кураторов трека).</span>
+                <span>peer-review на модули коллег.</span>
               </li>
             </ul>
-          </Panel>
-
-          <Panel className="-ml-px -mt-px">
-            <div className="eyebrow">§ 6</div>
-            <h2 className="mt-2 display text-3xl">Программа дней</h2>
-            <p className="mt-3 text-sm leading-relaxed">
-              Чтобы понимать, что и когда происходит.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <Link href="/days/2" className="btn btn-accent">
-                День 2 — сегодня →
-              </Link>
-              <Link href="/schedule" className="btn">
-                Все три дня
-              </Link>
-            </div>
           </Panel>
         </div>
       </Container>

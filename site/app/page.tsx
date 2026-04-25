@@ -30,19 +30,19 @@ export default function Home() {
                 по искусственному интеллекту.
               </h1>
               <p className="mt-8 serif italic text-xl text-[var(--ink-muted)] max-w-2xl">
-                Три дня в Астане: лекции, контест с ловушками для LLM,
-                командный проект — готовый олимпиадный модуль, который
-                учитель унесёт в свою школу.
+                Три дня в Астане: лекции, практики и командный проект —
+                готовый олимпиадный модуль, который учитель унесёт в свою
+                школу.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link href="/project" className="btn btn-accent">
                   Читать ТЗ проекта →
                 </Link>
-                <Link href="/schedule" className="btn">
-                  Программа саммита
+                <Link href="/days/2" className="btn">
+                  План Дня 2
                 </Link>
-                <Link href="/leaderboard" className="btn">
-                  Лидерборд контеста
+                <Link href="/teams" className="btn">
+                  Моя команда
                 </Link>
               </div>
             </div>
@@ -52,19 +52,19 @@ export default function Home() {
               <ol className="mt-4 space-y-3 text-sm">
                 <li className="flex items-baseline gap-3">
                   <span className="num text-2xl text-[var(--accent)]">01</span>
-                  <span>Две лекции об ИИ и инструментах</span>
+                  <span>Лекции про ИИ, инструменты и методику</span>
                 </li>
                 <li className="flex items-baseline gap-3">
                   <span className="num text-2xl text-[var(--accent)]">02</span>
-                  <span>Контест из 12 задач (4 с ловушкой для ИИ)</span>
+                  <span>ML-практикум на ноутбуках учителей</span>
                 </li>
                 <li className="flex items-baseline gap-3">
                   <span className="num text-2xl text-[var(--accent)]">03</span>
-                  <span>Проект: олимпиадный модуль по ИИ</span>
+                  <span>Командный проект — олимпиадный модуль</span>
                 </li>
                 <li className="flex items-baseline gap-3">
                   <span className="num text-2xl text-[var(--accent)]">04</span>
-                  <span>Защита перед жюри + выдача материалов</span>
+                  <span>Peer-review и выдача всех модулей всем</span>
                 </li>
               </ol>
             </div>
@@ -183,12 +183,12 @@ export default function Home() {
             <div className="eyebrow mt-2">Учителей</div>
           </div>
           <div>
-            <div className="num text-5xl">12</div>
-            <div className="eyebrow mt-2">Задач в контесте</div>
+            <div className="num text-5xl">5</div>
+            <div className="eyebrow mt-2">Разделов модуля</div>
           </div>
           <div>
-            <div className="num text-5xl">4</div>
-            <div className="eyebrow mt-2">Ловушки для LLM</div>
+            <div className="num text-5xl">+5</div>
+            <div className="eyebrow mt-2">Баллов за буст</div>
           </div>
         </div>
       </Container>
@@ -382,8 +382,8 @@ export default function Home() {
                 </Link>
               </li>
               <li>
-                <Link href="/contest" className="link-underline">
-                  Разбор задач контеста
+                <Link href="/teams" className="link-underline">
+                  Команды и папки на Drive
                 </Link>
               </li>
             </ul>

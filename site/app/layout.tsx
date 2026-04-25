@@ -34,13 +34,9 @@ export const metadata: Metadata = {
 const nav = [
   { href: "/", label: "Главная" },
   { href: "/days/2", label: "Сегодня · Д2" },
-  { href: "/schedule", label: "Программа" },
   { href: "/teams", label: "Команды" },
   { href: "/project", label: "Проект" },
-  { href: "/contest", label: "Контест" },
-  { href: "/leaderboard", label: "Лидерборд" },
   { href: "/lectures", label: "Лекции" },
-  { href: "/vosh-archive", label: "Архив ВсОШ" },
   { href: "/materials", label: "Материалы" },
 ];
 
@@ -133,8 +129,8 @@ export default function RootLayout({
                   </Link>
                 </li>
                 <li>
-                  <Link href="/leaderboard" className="link-underline">
-                    Лидерборд контеста
+                  <Link href="/teams" className="link-underline">
+                    Команды и Drive
                   </Link>
                 </li>
               </ul>
