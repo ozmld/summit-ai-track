@@ -39,16 +39,17 @@ export const lectures: Lecture[] = [
   {
     slug: "d2p2-ml-metrics",
     code: "Д2 · П2",
-    title: "ML: fit / predict, метрики, визуализация",
+    title: "ML-практикум: fit, predict, метрики",
     speaker: "Иван Эйдлин",
     day: 2,
     minutes: 60,
     summary:
-      "Как выглядит обучение модели на практике. Единый sklearn-API, три модели одним кодом, метрики классификации и регрессии, визуализация confusion matrix и переобучения.",
+      "Учителя с ноутбуками, у каждого открыт d2p2_student.ipynb в Colab. За час обучаем модель, которая предсказывает, сдаст ли школьник ОГЭ по математике. Три модели (LogReg, KNN, RandomForest) одним sklearn-API, метрики, confusion matrix, переобучение глазами, челлендж.",
     notebooks: [
-      { label: "Конспект лекции", href: "/lectures/d2p2-ml-metrics.md" },
-      { label: "fit_predict_tour.ipynb", href: "/notebooks/fit_predict_tour.ipynb" },
-      { label: "metrics_visual.ipynb", href: "/notebooks/metrics_visual.ipynb" },
+      { label: "Конспект препода / тайминг-план", href: "/lectures/d2p2-ml-metrics.md" },
+      { label: "d2p2_student.ipynb (для учителей)", href: "/notebooks/d2p2_student.ipynb" },
+      { label: "d2p2_filled.ipynb (заполненный)", href: "/notebooks/d2p2_filled.ipynb" },
+      { label: "students_pass.csv (датасет)", href: "/datasets/students_pass.csv" },
     ],
     status: "ready",
   },

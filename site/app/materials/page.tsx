@@ -83,21 +83,28 @@ export default function MaterialsPage() {
                 target="_blank"
                 className="btn"
               >
-                Д2П2. Конспект
+                Д2П2. Конспект препода
               </a>
               <a
-                href="/notebooks/fit_predict_tour.ipynb"
+                href="/notebooks/d2p2_student.ipynb"
+                target="_blank"
+                className="btn btn-accent"
+              >
+                d2p2_student.ipynb ↓
+              </a>
+              <a
+                href="/notebooks/d2p2_filled.ipynb"
                 target="_blank"
                 className="btn"
               >
-                fit_predict.ipynb
+                d2p2_filled.ipynb ↓
               </a>
               <a
-                href="/notebooks/metrics_visual.ipynb"
+                href="/datasets/students_pass.csv"
                 target="_blank"
                 className="btn"
               >
-                metrics_visual.ipynb
+                students_pass.csv ↓
               </a>
               <Link href="/lectures" className="btn">
                 Все лекции →
