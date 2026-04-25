@@ -122,6 +122,56 @@ export default function Home() {
         </Container>
       </section>
 
+      <section className="border-b border-[var(--ink)]">
+        <Container className="py-12">
+          <div className="eyebrow mb-3">Учителю: три шага на сегодня</div>
+          <div className="grid gap-0 sm:grid-cols-3">
+            {[
+              {
+                n: "01",
+                title: "Найдите свою команду",
+                body: "Откройте страницу «Команды», найдите свой состав и кликните «Открыть папку команды на Drive». Там готов шаблон модуля.",
+                cta: "Перейти к командам →",
+                href: "/teams",
+              },
+              {
+                n: "02",
+                title: "Прочитайте гайд и ТЗ",
+                body: "Короткий гайд: что такое модуль, что куда заливать, как будут оценивать. 5 разделов + опциональные бусты по +5 баллов.",
+                cta: "Открыть ТЗ проекта →",
+                href: "/project",
+              },
+              {
+                n: "03",
+                title: "Посмотрите план дня",
+                body: "Четыре пары: применение ИИ, ML-инженерия, математика с разбором задач, командная работа. В конце дня — готовые Разделы 0–2.",
+                cta: "Программа Дня 2 →",
+                href: "/days/2",
+              },
+            ].map((s) => (
+              <div
+                key={s.n}
+                className="border border-[var(--rule)] -ml-px -mt-px p-6"
+              >
+                <div className="num text-4xl text-[var(--accent)]">{s.n}</div>
+                <div className="mt-2 serif text-xl leading-tight">
+                  {s.title}
+                </div>
+                <p className="mt-3 text-sm text-[var(--ink-muted)] leading-relaxed">
+                  {s.body}
+                </p>
+                <Link
+                  href={s.href}
+                  className="link-underline mt-4 inline-block text-sm"
+                >
+                  {s.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       <Container className="py-12">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 border-b border-[var(--rule)] pb-10">
           <div>
@@ -201,33 +251,40 @@ export default function Home() {
               Каждая команда разрабатывает собственный модуль за два дня
               саммита.
             </p>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 {
-                  n: "A",
-                  t: "Задача",
-                  d: "Оригинальное условие уровня ВсОШ, полное решение, формат ответа.",
+                  n: "0",
+                  t: "Шапка модуля",
+                  d: "Название, состав команды, тема, тип задачи.",
                 },
                 {
-                  n: "B",
-                  t: "Разбор для ученика",
-                  d: "Методичка «как думать», типичные ошибки, подсказки.",
+                  n: "1",
+                  t: "Условие задачи",
+                  d: "Авторская задача в формате ВсОШ — без решения.",
                 },
                 {
-                  n: "C",
-                  t: "Гайд для учителя",
-                  d: "Как вести занятие, критерии оценки, расширения задачи.",
+                  n: "2",
+                  t: "Решение и ответ",
+                  d: "Ход рассуждения и ответ в оговорённом формате.",
                 },
                 {
-                  n: "D",
-                  t: "Задача-ловушка (бонус)",
-                  d: "Вариант задачи с подвохом для ИИ — учим школьника не доверять LLM слепо.",
+                  n: "3",
+                  t: "Методичка ученику",
+                  d: "Как думать, типичные ошибки, подсказки по уровням.",
+                },
+                {
+                  n: "4",
+                  t: "Гайд учителю",
+                  d: "Как вести урок: тайминг, вопросы классу, критерии.",
+                },
+                {
+                  n: "5",
+                  t: "Задача-ловушка",
+                  d: "Опциональный раздел под буст «устойчивость к LLM».",
                 },
               ].map((b) => (
-                <div
-                  key={b.n}
-                  className="border-t border-[var(--ink)] pt-3"
-                >
+                <div key={b.n} className="border-t border-[var(--ink)] pt-3">
                   <div className="flex items-baseline gap-3">
                     <span className="num text-3xl text-[var(--accent)]">
                       {b.n}
@@ -240,6 +297,12 @@ export default function Home() {
                 </div>
               ))}
             </div>
+            <p className="mt-8 text-sm text-[var(--ink-muted)]">
+              Плюс 5 опциональных бустов (LLM-ловушка, реальный кейс,
+              серия, визуал, интерактив) — каждый даёт{" "}
+              <span className="text-[var(--accent)]">+5 баллов</span> к
+              итогу.
+            </p>
           </div>
 
           <Panel>
