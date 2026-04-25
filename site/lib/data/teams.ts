@@ -90,6 +90,17 @@ export const teams: Team[] = [
     ],
   },
   {
+    slug: "komanda-2-2",
+    name: "Команда 2+2",
+    driveFolder: "https://drive.google.com/drive/folders/1p7aTSq3TYn3A7GuLHrtFXUwqAENJVdzO",
+    members: [
+      "Оспанова Зауре",
+      "Сулейменова Салтанат",
+      "Кукимов Муратхан",
+      "Рахматулла Ерғали",
+    ],
+  },
+  {
     slug: "sm2",
     name: "SM2",
     driveFolder: "https://drive.google.com/drive/folders/1kJn7BEokDxR3gS5OFBInawtS7eshSUMm",
