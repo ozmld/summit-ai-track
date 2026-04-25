@@ -46,10 +46,12 @@ export const lectures: Lecture[] = [
     summary:
       "Учителя с ноутбуками, у каждого открыт d2p2_student.ipynb в Colab. За час обучаем модель, которая предсказывает, сдаст ли школьник ОГЭ по математике. Три модели (LogReg, KNN, RandomForest) одним sklearn-API, метрики, confusion matrix, переобучение глазами, челлендж.",
     notebooks: [
-      { label: "Конспект препода / тайминг-план", href: "/lectures/d2p2-ml-metrics.md" },
-      { label: "d2p2_student.ipynb (для учителей)", href: "/notebooks/d2p2_student.ipynb" },
-      { label: "d2p2_filled.ipynb (заполненный)", href: "/notebooks/d2p2_filled.ipynb" },
-      { label: "students_pass.csv (датасет)", href: "/datasets/students_pass.csv" },
+      {
+        label: "Открыть в Colab ↗",
+        href: "https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/d2p2_student.ipynb",
+      },
+      { label: "Скачать d2p2_student.ipynb", href: "/notebooks/d2p2_student.ipynb" },
+      { label: "Датасет students_pass.csv", href: "/datasets/students_pass.csv" },
     ],
     status: "ready",
   },

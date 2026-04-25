@@ -39,6 +39,48 @@ export default function Day2Page() {
               <div>
                 <p className="serif text-lg leading-snug">{p.summary}</p>
 
+                {p.materials && p.materials.length > 0 && (
+                  <div className="mt-6 border-t border-[var(--rule)] pt-5">
+                    <div className="eyebrow mb-3">Материалы к этой паре</div>
+                    <div className="flex flex-wrap gap-2">
+                      {p.materials.map((m) =>
+                        m.external ? (
+                          <a
+                            key={m.label}
+                            href={m.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={m.primary ? "btn btn-accent" : "btn"}
+                          >
+                            {m.label} ↗
+                          </a>
+                        ) : m.href.startsWith("/") &&
+                          !m.href.endsWith(".pdf") &&
+                          !m.href.endsWith(".ipynb") &&
+                          !m.href.endsWith(".csv") ? (
+                          <Link
+                            key={m.label}
+                            href={m.href}
+                            className={m.primary ? "btn btn-accent" : "btn"}
+                          >
+                            {m.label} →
+                          </Link>
+                        ) : (
+                          <a
+                            key={m.label}
+                            href={m.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={m.primary ? "btn btn-accent" : "btn"}
+                          >
+                            {m.label} ↓
+                          </a>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 <div className="mt-8 grid gap-6 sm:grid-cols-2">
                   {p.teamTask && (
                     <Panel>

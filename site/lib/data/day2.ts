@@ -9,6 +9,7 @@ export type Pair = {
   teamTask?: string;
   deliverable?: string;
   prep?: string[];
+  materials?: { label: string; href: string; primary?: boolean; external?: boolean }[];
 };
 
 export const day2Pairs: Pair[] = [
@@ -41,6 +42,14 @@ export const day2Pairs: Pair[] = [
       "Исупов: слайды lec2 (уже на сайте).",
       "Игнатьев: 5–6 буллетов про ВсОШ + 3 примера задач.",
       "Эйдлин: 8 шаблонов Google Doc в папках команд на Drive, ссылки + распечатка шаблона на столе.",
+    ],
+    materials: [
+      {
+        label: "Лекция Матвея: «Применение ИИ» (PDF)",
+        href: "/lectures/lec2-applications.pdf",
+        primary: true,
+      },
+      { label: "ТЗ командного проекта", href: "/project" },
     ],
   },
   {
@@ -98,6 +107,22 @@ export const day2Pairs: Pair[] = [
       "Эйдлин: датасет students_pass.csv — 300 строк, 5 признаков, целевая «сдал ОГЭ».",
       "Эйдлин: конспект-тайминг препода /lectures/d2p2-ml-metrics.md.",
       "Игнатьев: 15-минутный блок — методика / мостик к математике П3.",
+    ],
+    materials: [
+      {
+        label: "Открыть d2p2_student.ipynb в Colab",
+        href: "https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/d2p2_student.ipynb",
+        primary: true,
+        external: true,
+      },
+      {
+        label: "Скачать d2p2_student.ipynb",
+        href: "/notebooks/d2p2_student.ipynb",
+      },
+      {
+        label: "Датасет students_pass.csv",
+        href: "/datasets/students_pass.csv",
+      },
     ],
   },
   {
@@ -184,6 +209,12 @@ export const day2Pairs: Pair[] = [
       "Эйдлин: распечатка 2 эталонных задач ВсОШ на каждый стол.",
       "Эйдлин: распределение менторов по столам (каждый за 1–2 командами).",
       "Все менторы: свободны лекторствовать, отвечают на вопросы у столов.",
+    ],
+    materials: [
+      { label: "ТЗ командного проекта", href: "/project", primary: true },
+      { label: "Гайд для учителей", href: "/guide" },
+      { label: "Шаблон модуля", href: "/module-template" },
+      { label: "Папки команд на Drive", href: "/teams" },
     ],
   },
 ];

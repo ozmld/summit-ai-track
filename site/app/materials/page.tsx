@@ -79,25 +79,19 @@ export default function MaterialsPage() {
                 Д2П1. Применение (PDF)
               </a>
               <a
-                href="/lectures/d2p2-ml-metrics.md"
+                href="https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/d2p2_student.ipynb"
                 target="_blank"
-                className="btn"
+                rel="noreferrer"
+                className="btn btn-accent"
               >
-                Д2П2. Конспект препода
+                Д2П2. Открыть в Colab ↗
               </a>
               <a
                 href="/notebooks/d2p2_student.ipynb"
                 target="_blank"
-                className="btn btn-accent"
-              >
-                d2p2_student.ipynb ↓
-              </a>
-              <a
-                href="/notebooks/d2p2_filled.ipynb"
-                target="_blank"
                 className="btn"
               >
-                d2p2_filled.ipynb ↓
+                d2p2_student.ipynb ↓
               </a>
               <a
                 href="/datasets/students_pass.csv"
