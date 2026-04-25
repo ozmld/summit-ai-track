@@ -41,6 +41,18 @@ export default function TeamsPage() {
                   </li>
                 ))}
               </ol>
+              {t.driveFolder && (
+                <div className="mt-5 pt-4 border-t border-[var(--rule-soft)]">
+                  <a
+                    href={t.driveFolder}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn btn-accent"
+                  >
+                    Открыть папку команды на Drive ↗
+                  </a>
+                </div>
+              )}
             </article>
           ))}
         </div>
