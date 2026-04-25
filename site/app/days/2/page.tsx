@@ -83,8 +83,8 @@ export default function Day2Page() {
                 </Link>
               </li>
               <li>
-                <Link href="/schedule" className="link-underline">
-                  Общее расписание саммита →
+                <Link href="/teams" className="link-underline">
+                  Команды и папки на Drive →
                 </Link>
               </li>
             </ul>

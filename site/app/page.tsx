@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Container, Panel, SectionHead } from "@/components/section";
-import { schedule } from "@/lib/data/schedule";
 import { teams } from "@/lib/data/teams";
 import { juries } from "@/lib/data/juries";
 import { site } from "@/lib/site";
@@ -145,7 +144,7 @@ export default function Home() {
                 n: "03",
                 title: "Посмотрите план дня",
                 body: "Четыре пары: применение ИИ, ML-инженерия, математика с разбором задач, командная работа. В конце дня — готовые Разделы 0–2.",
-                cta: "Программа Дня 2 →",
+                cta: "План Дня 2 →",
                 href: "/days/2",
               },
             ].map((s) => (
@@ -190,45 +189,6 @@ export default function Home() {
             <div className="num text-5xl">+5</div>
             <div className="eyebrow mt-2">Баллов за буст</div>
           </div>
-        </div>
-      </Container>
-
-      <Container className="py-6">
-        <SectionHead
-          number="I"
-          title="Программа"
-          right={
-            <Link href="/schedule" className="link-underline">
-              Все три дня →
-            </Link>
-          }
-        />
-        <div className="mt-8 grid gap-0 sm:grid-cols-3 sm:divide-x sm:divide-[var(--rule)]">
-          {schedule.map((day, idx) => (
-            <div key={day.date} className="px-0 sm:px-6 first:pl-0 last:pr-0 pb-6">
-              <div className="flex items-baseline gap-3">
-                <span className="num text-4xl text-[var(--accent)]">
-                  0{idx + 1}
-                </span>
-                <div>
-                  <div className="eyebrow">{day.date}</div>
-                  <div className="serif text-xl leading-tight">
-                    {day.label.replace(/^День \d+ — /, "")}
-                  </div>
-                </div>
-              </div>
-              <ul className="mt-5 space-y-3 text-sm">
-                {day.items.slice(0, 5).map((i) => (
-                  <li key={i.time} className="grid grid-cols-[80px_1fr] gap-3">
-                    <span className="mono text-xs text-[var(--ink-muted)] pt-0.5">
-                      {i.time}
-                    </span>
-                    <span>{i.title}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
         </div>
       </Container>
 
