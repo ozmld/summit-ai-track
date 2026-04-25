@@ -27,7 +27,7 @@ export default function Day2Page() {
               <header>
                 <div className="section-number">№ 0{idx + 1}</div>
                 <div className="mono uppercase tracking-widest text-xs text-[var(--ink-muted)] mt-3">
-                  {p.code}
+                  {p.code} · {p.minutes} мин
                 </div>
                 <h2 className="display text-3xl mt-2 leading-tight">
                   {p.title}

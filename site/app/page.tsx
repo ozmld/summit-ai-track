@@ -96,7 +96,7 @@ export default function Home() {
               {day2Pairs.map((p, i) => (
                 <li
                   key={p.slug}
-                  className="grid grid-cols-[50px_1fr_70px] gap-4 items-baseline border-b border-[var(--rule-soft)] py-3"
+                  className="grid grid-cols-[50px_1fr_80px] gap-4 items-baseline border-b border-[var(--rule-soft)] py-3"
                 >
                   <span className="num text-2xl text-[var(--accent)]">
                     П{i + 1}
@@ -113,7 +113,7 @@ export default function Home() {
                     </div>
                   </span>
                   <span className="text-right mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
-                    {p.code}
+                    {p.minutes} мин
                   </span>
                 </li>
               ))}

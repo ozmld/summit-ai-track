@@ -67,7 +67,7 @@ export const schedule: ScheduleDay[] = [
     label: "День 2 — Инструменты и методика",
     items: [
       {
-        time: "Пара 1",
+        time: "Пара 1 · 60 мин",
         title:
           "Д2П1. Применение ИИ в работе учителя + ВсОШ по ИИ",
         speaker: "Матвей Исупов + Артур Игнатьев",
@@ -75,21 +75,21 @@ export const schedule: ScheduleDay[] = [
         note: "Применение ИИ и инструменты учителя + структура ВсОШ по ИИ, примеры задач. В конце — объявление командного проекта.",
       },
       {
-        time: "Пара 2",
+        time: "Пара 2 · 60 мин",
         title: "Д2П2. ML: fit/predict, метрики, визуализация",
         speaker: "Иван Эйдлин",
         kind: "lecture",
         note: "pandas · sklearn-API на трёх моделях · accuracy/precision/recall/F1/confusion matrix · MSE/MAE/R² · train/test split · matplotlib.",
       },
       {
-        time: "Пара 3",
+        time: "Пара 3 · 90 мин",
         title: "Д2П3. Математика в ИИ + разбор задач ВсОШ",
         speaker: "Максим Бидва + Матвей Исупов",
         kind: "lecture",
         note: "Теорвер и Байес, векторы и матрицы, производная и градиент — с numpy-примерами. Затем живой разбор задач ВсОШ.",
       },
       {
-        time: "Пара 4",
+        time: "Пара 4 · 60 мин",
         title: "Д2П4. Командная работа над проектом",
         speaker: "Все менторы в зале",
         kind: "practice",

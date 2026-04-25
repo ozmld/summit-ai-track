@@ -24,6 +24,7 @@ export default function LecturesPage() {
                   </span>
                   <span className="eyebrow">
                     {l.code ?? `День ${l.day}`}
+                    {l.minutes ? ` · ${l.minutes} мин` : ""}
                   </span>
                 </div>
                 <span
