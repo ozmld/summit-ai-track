@@ -52,6 +52,11 @@ export const lectures: Lecture[] = [
       },
       { label: "Скачать d2p2_student.ipynb", href: "/notebooks/d2p2_student.ipynb" },
       { label: "Датасет students_pass.csv", href: "/datasets/students_pass.csv" },
+      {
+        label: "Открыть d2p2_filled.ipynb в Colab (разбор) ↗",
+        href: "https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/d2p2_filled.ipynb",
+      },
+      { label: "Скачать d2p2_filled.ipynb", href: "/notebooks/d2p2_filled.ipynb" },
     ],
     status: "ready",
   },
