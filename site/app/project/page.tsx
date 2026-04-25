@@ -268,22 +268,12 @@ export default function ProjectPage() {
                 как сдавать модуль. Шаблон — заготовка всех пяти разделов.
               </p>
               <div className="flex flex-col gap-2">
-                <a
-                  href="/project/team-guide.md"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-accent"
-                >
-                  Гайд для учителей ↗
-                </a>
-                <a
-                  href="/project/module-template.md"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn"
-                >
-                  Шаблон модуля ↗
-                </a>
+                <Link href="/guide" className="btn btn-accent">
+                  Гайд для учителей →
+                </Link>
+                <Link href="/module-template" className="btn">
+                  Шаблон модуля →
+                </Link>
               </div>
             </Panel>
 

@@ -45,20 +45,12 @@ export default function MaterialsPage() {
               как будут оценивать. Шаблон — заготовка всех пяти разделов.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <a
-                href="/project/team-guide.md"
-                target="_blank"
-                className="btn btn-accent"
-              >
-                Гайд для учителей
-              </a>
-              <a
-                href="/project/module-template.md"
-                target="_blank"
-                className="btn"
-              >
-                Шаблон модуля
-              </a>
+              <Link href="/guide" className="btn btn-accent">
+                Гайд для учителей →
+              </Link>
+              <Link href="/module-template" className="btn">
+                Шаблон модуля →
+              </Link>
               <Link href="/project" className="btn">
                 ТЗ полностью →
               </Link>
