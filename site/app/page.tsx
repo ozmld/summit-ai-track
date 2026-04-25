@@ -278,11 +278,6 @@ export default function Home() {
                   t: "Гайд учителю",
                   d: "Как вести урок: тайминг, вопросы классу, критерии.",
                 },
-                {
-                  n: "5",
-                  t: "Задача-ловушка",
-                  d: "Опциональный раздел под буст «устойчивость к LLM».",
-                },
               ].map((b) => (
                 <div key={b.n} className="border-t border-[var(--ink)] pt-3">
                   <div className="flex items-baseline gap-3">
@@ -298,8 +293,8 @@ export default function Home() {
               ))}
             </div>
             <p className="mt-8 text-sm text-[var(--ink-muted)]">
-              Плюс 5 опциональных бустов (LLM-ловушка, реальный кейс,
-              серия, визуал, интерактив) — каждый даёт{" "}
+              Плюс 5 опциональных бустов (устойчивость к LLM, реальный
+              кейс, серия, визуал, интерактив) — каждый даёт{" "}
               <span className="text-[var(--accent)]">+5 баллов</span> к
               итогу.
             </p>

@@ -34,19 +34,13 @@ const sections = [
     body: "Как провести занятие: тайминг, вопросы для класса, критерии оценивания, как расширять задачу до проекта или урока.",
     when: "Д3 — вторая пара проекта",
   },
-  {
-    n: "5",
-    title: "Задача-ловушка (опционально)",
-    body: "Вариант задачи с подвохом для ИИ: ложный авторитет, инъекция в данных, роль-бот. Если взят буст «ЛЛМ» — обязательный артефакт.",
-    when: "Д3 — в процессе финализации",
-  },
 ];
 
 const boosts = [
   {
     code: "Л",
     title: "Устойчивость к LLM",
-    body: "Команда делает задачу-ловушку (Раздел 5) и описывает, как именно ломается ChatGPT / DeepSeek на ней.",
+    body: "Команда показывает, как именно ChatGPT / DeepSeek ломается на этой задаче: версия условия с подвохом, пример сбитого ответа, объяснение механики.",
   },
   {
     code: "К",
@@ -111,7 +105,7 @@ export default function ProjectPage() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 border-b border-[var(--rule)] pb-10">
           <div>
             <div className="num text-5xl">5</div>
-            <div className="eyebrow mt-2">Обязательных разделов</div>
+            <div className="eyebrow mt-2">Разделов модуля (0–4)</div>
           </div>
           <div>
             <div className="num text-5xl">5</div>
