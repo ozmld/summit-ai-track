@@ -38,6 +38,7 @@ const nav = [
   { href: "/project", label: "Проект" },
   { href: "/lectures", label: "Лекции" },
   { href: "/materials", label: "Материалы" },
+  { href: "/review", label: "Peer review" },
 ];
 
 export default function RootLayout({
