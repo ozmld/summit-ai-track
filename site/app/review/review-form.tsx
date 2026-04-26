@@ -233,26 +233,19 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
         </div>
       </div>
 
+      <div className="border border-[var(--rule-soft)] bg-[var(--paper-2)]/40 p-4 text-sm">
+        <b>Названия команд и участники скрыты</b> — чтобы оценивать по существу,
+        а не по симпатиям. Если имя автора всё-таки проглядывает в названии
+        файла — постарайтесь на это не смотреть.
+      </div>
+
       {targets.map((t, idx) => (
         <article key={t.slug} className="border border-[var(--rule)]">
           <header className="border-b border-[var(--rule)] p-5 bg-[var(--paper-2)]/40">
-            <div className="flex items-baseline justify-between gap-4">
-              <div>
-                <span className="section-number mr-3">№ {idx + 1}</span>
-                <span className="display text-2xl">{t.name}</span>
-              </div>
-              <a
-                href={t.driveFolder}
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-accent"
-              >
-                Папка команды на Drive ↗
-              </a>
+            <div className="flex items-baseline gap-3">
+              <span className="section-number">№ {idx + 1}</span>
+              <span className="display text-2xl">Модуль</span>
             </div>
-            <p className="mt-3 text-sm text-[var(--ink-muted)]">
-              {t.members.join(" · ")}
-            </p>
           </header>
 
           <div className="p-5 grid gap-6 lg:grid-cols-[1fr_1fr]">
