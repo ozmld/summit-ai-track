@@ -63,16 +63,19 @@ function prng(seed: number) {
   };
 }
 
-function pickTargets(pool: ReviewTeam[], mySlug: string, name: string, count: number) {
+const BASE_COUNT = 3;
+
+// Полный детерминированный перемешанный пул (без своей команды) —
+// первые 3 обязательные, остальные открываются по кнопке «оценить ещё».
+function shuffledPool(pool: ReviewTeam[], mySlug: string, name: string) {
   const rest = pool.filter((t) => t.slug !== mySlug);
-  if (rest.length <= count) return rest;
   const rand = prng(hash(`${mySlug}:${name.trim().toLowerCase()}`));
   const arr = [...rest];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(rand() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return arr.slice(0, count);
+  return arr;
 }
 
 export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
@@ -80,14 +83,19 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
   const [myName, setMyName] = useState<string>("");
   const [locked, setLocked] = useState(false);
   const [scores, setScores] = useState<ScoresByTeam>({});
+  const [extraCount, setExtraCount] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "ok" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const targets = useMemo(() => {
+  const pool = useMemo(() => {
     if (!locked || !mySlug || !myName.trim()) return [];
-    return pickTargets(teams, mySlug, myName, 3);
+    return shuffledPool(teams, mySlug, myName);
   }, [locked, mySlug, myName, teams]);
+
+  const visibleCount = Math.min(BASE_COUNT + extraCount, pool.length);
+  const targets = pool.slice(0, visibleCount);
+  const canAddMore = visibleCount < pool.length;
 
   function setScore(slug: string, key: CritKey, value: number) {
     setScores((s) => ({ ...s, [slug]: { ...s[slug], [key]: value } }));
@@ -105,7 +113,9 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
 
   async function submit() {
     if (!allFilled()) {
-      alert("Поставьте оценки по всем 5 критериям у каждой из 3 команд.");
+      alert(
+        `Поставьте оценки по всем 5 критериям у каждого из ${targets.length} открытых модулей.`,
+      );
       return;
     }
     setSubmitting(true);
@@ -225,6 +235,7 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
             onClick={() => {
               setLocked(false);
               setScores({});
+              setExtraCount(0);
               setStatus("idle");
             }}
           >
@@ -241,11 +252,29 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
 
       {targets.map((t, idx) => (
         <article key={t.slug} className="border border-[var(--rule)]">
-          <header className="border-b border-[var(--rule)] p-5 bg-[var(--paper-2)]/40">
+          <header className="border-b border-[var(--rule)] p-5 bg-[var(--paper-2)]/40 flex items-baseline justify-between gap-4">
             <div className="flex items-baseline gap-3">
               <span className="section-number">№ {idx + 1}</span>
               <span className="display text-2xl">Модуль</span>
+              {idx >= BASE_COUNT && (
+                <span className="eyebrow text-[var(--accent)]">бонус</span>
+              )}
             </div>
+            {idx >= BASE_COUNT && (
+              <button
+                type="button"
+                className="text-xs mono uppercase tracking-widest text-[var(--ink-muted)] hover:text-[var(--accent)]"
+                onClick={() => {
+                  setExtraCount((n) => Math.max(0, n - 1));
+                  setScores((s) => {
+                    const { [t.slug]: _removed, ...rest } = s;
+                    return rest;
+                  });
+                }}
+              >
+                убрать ×
+              </button>
+            )}
           </header>
 
           <div className="p-5 grid gap-6 lg:grid-cols-[1fr_1fr]">
@@ -303,6 +332,25 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
         </article>
       ))}
 
+      {canAddMore && (
+        <div className="border border-dashed border-[var(--rule)] p-5 text-center space-y-2">
+          <div className="text-sm text-[var(--ink-muted)]">
+            Уже справились с основными? Можно оценить ещё один модуль — будет
+            плюсом в общий зачёт коллег.
+          </div>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => setExtraCount((n) => n + 1)}
+          >
+            + оценить ещё один модуль
+          </button>
+          <div className="text-xs text-[var(--ink-muted)] mono">
+            осталось доступно: {pool.length - visibleCount}
+          </div>
+        </div>
+      )}
+
       {status === "error" && (
         <div className="border border-red-500 p-4 text-sm">
           Не получилось отправить: {errorMsg}. Попробуйте ещё раз или напишите
@@ -313,8 +361,12 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
       <div className="flex items-center justify-between gap-4">
         <div className="text-sm text-[var(--ink-muted)]">
           {allFilled()
-            ? "Все 5×3 = 15 оценок заполнены."
-            : "Заполните все 15 оценок, прежде чем отправлять."}
+            ? `Все ${CRITERIA.length}×${targets.length} = ${
+                CRITERIA.length * targets.length
+              } оценок заполнены.`
+            : `Заполните все ${
+                CRITERIA.length * targets.length
+              } оценок, прежде чем отправлять.`}
         </div>
         <button
           type="button"
