@@ -63,7 +63,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-baseline gap-3">
                   <span className="num text-2xl text-[var(--accent)]">04</span>
-                  <span>Peer-review и выдача всех модулей всем</span>
+                  <span>Защита трёх отобранных модулей перед жюри</span>
                 </li>
               </ol>
             </div>

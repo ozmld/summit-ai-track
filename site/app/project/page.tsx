@@ -65,11 +65,10 @@ const boosts = [
 ];
 
 const rubric = [
-  { item: "Оригинальность задачи", points: 20 },
-  { item: "Корректность и полнота решения", points: 20 },
-  { item: "Качество методички для ученика", points: 20 },
-  { item: "Гайд для учителя", points: 20 },
-  { item: "Peer review от коллег", points: 20 },
+  { item: "Оригинальность задачи", points: 25 },
+  { item: "Корректность и полнота решения", points: 25 },
+  { item: "Качество методички для ученика", points: 25 },
+  { item: "Гайд для учителя", points: 25 },
 ];
 
 const formats = [
@@ -194,37 +193,37 @@ export default function ProjectPage() {
             </div>
 
             <div className="mt-16">
-              <div className="eyebrow mb-3">§ 4 · Защита — peer review</div>
+              <div className="eyebrow mb-3">§ 4 · Защита</div>
               <p className="serif text-lg leading-snug">
-                Классической презентации не будет. Вместо неё на Д3П2 каждая
-                команда публикует готовый модуль на сайте, и учителя оценивают
-                модули коллег по 4 шкалам + свободный комментарий. Жюри
-                параллельно формирует свои оценки.
+                Жюри отбирает три самых сильных модуля. Эти три команды
+                выступают на Д3П2 — короткая презентация (≈ 10 минут) и
+                ответы на вопросы. Остальные модули остаются в архиве
+                саммита и доступны всем участникам через папки Drive.
               </p>
               <ul className="mt-5 space-y-2 text-sm">
                 <li className="border-b border-[var(--rule-soft)] pb-2">
                   <span className="mono text-[11px] uppercase tracking-widest text-[var(--accent)]">
-                    А.
+                    1.
                   </span>{" "}
-                  Полезно мне как учителю (0–5).
+                  Что за задача и почему её стоит взять в класс.
                 </li>
                 <li className="border-b border-[var(--rule-soft)] pb-2">
                   <span className="mono text-[11px] uppercase tracking-widest text-[var(--accent)]">
-                    Б.
+                    2.
                   </span>{" "}
-                  Понятность методички ученика (0–5).
+                  Идея решения — без технических подробностей, по сути.
                 </li>
                 <li className="border-b border-[var(--rule-soft)] pb-2">
                   <span className="mono text-[11px] uppercase tracking-widest text-[var(--accent)]">
-                    В.
+                    3.
                   </span>{" "}
-                  Оригинальность задачи (0–5).
+                  Как команда планирует проводить занятие с учениками.
                 </li>
                 <li className="border-b border-[var(--rule-soft)] pb-2">
                   <span className="mono text-[11px] uppercase tracking-widest text-[var(--accent)]">
-                    Г.
+                    4.
                   </span>{" "}
-                  Хочу взять в класс (да / нет).
+                  Вопросы от жюри и коллег.
                 </li>
               </ul>
             </div>
@@ -286,7 +285,7 @@ export default function ProjectPage() {
                   </Link>
                 </li>
                 <li className="text-[var(--ink-muted)]">
-                  День 3 — Разделы 3, 4, 5 + peer review
+                  День 3 — Разделы 3, 4 + защита трёх отобранных команд
                 </li>
               </ul>
             </Panel>

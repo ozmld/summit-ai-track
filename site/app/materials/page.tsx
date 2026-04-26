@@ -127,7 +127,7 @@ export default function MaterialsPage() {
               </li>
               <li className="flex gap-3">
                 <span className="num text-[var(--accent)]">D</span>
-                <span>peer-review на модули коллег.</span>
+                <span>записи защит трёх отобранных модулей.</span>
               </li>
             </ul>
           </Panel>
