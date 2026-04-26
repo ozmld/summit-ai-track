@@ -171,6 +171,8 @@ export function ReviewForm({
 
   // --- STEP 1: identify ---
   if (!locked) {
+    const myTeam = allTeams.find((t) => t.slug === mySlug);
+    const members = myTeam?.members ?? [];
     return (
       <section className="border border-[var(--rule)] p-6 sm:p-8 space-y-6">
         <div className="eyebrow">Шаг 1</div>
@@ -181,7 +183,10 @@ export function ReviewForm({
             <select
               className="w-full border border-[var(--rule)] bg-[var(--paper)] p-2 text-base"
               value={mySlug}
-              onChange={(e) => setMySlug(e.target.value)}
+              onChange={(e) => {
+                setMySlug(e.target.value);
+                setMyName("");
+              }}
             >
               <option value="">— выберите —</option>
               {allTeams.map((t) => (
@@ -192,19 +197,33 @@ export function ReviewForm({
             </select>
           </label>
           <label className="block">
-            <span className="eyebrow block mb-1">ФИО</span>
-            <input
+            <span className="eyebrow block mb-1">Ваше ФИО</span>
+            <select
               className="w-full border border-[var(--rule)] bg-[var(--paper)] p-2 text-base"
-              placeholder="Иванов Иван Иванович"
               value={myName}
               onChange={(e) => setMyName(e.target.value)}
-            />
+              disabled={!mySlug}
+            >
+              <option value="">
+                {mySlug ? "— выберите себя из списка —" : "— сначала команду —"}
+              </option>
+              {members.map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
+        <p className="text-xs text-[var(--ink-muted)]">
+          ФИО берутся из списка участников команды — так система надёжно узнаёт
+          вас при повторном заходе и не путает с коллегами. Если вас нет в
+          списке — напишите куратору трека.
+        </p>
         <button
           type="button"
           className="btn btn-accent"
-          disabled={!mySlug || myName.trim().length < 3}
+          disabled={!mySlug || !myName}
           onClick={() => setLocked(true)}
         >
           Получить свои 3 команды →
