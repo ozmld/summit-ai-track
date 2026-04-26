@@ -8,7 +8,9 @@ export const metadata = {
 };
 
 export default function ReviewIndexPage() {
-  const teamsWithArtifacts = teams.map((t) => {
+  // Все команды — для выпадающего списка «кто оценивает» (в т.ч. те,
+  // у кого в папке пока пусто, — они всё равно участвуют в саммите).
+  const allTeams = teams.map((t) => {
     const a = artifacts.find((x) => x.slug === t.slug);
     return {
       slug: t.slug,
@@ -18,6 +20,8 @@ export default function ReviewIndexPage() {
       files: a?.files ?? [],
     };
   });
+  // В пул оцениваемых модулей — только те, у кого есть хоть какой-то файл.
+  const reviewPool = allTeams.filter((t) => t.files.length > 0);
   return (
     <>
       <PageHeader
@@ -58,7 +62,7 @@ export default function ReviewIndexPage() {
           </div>
         </Panel>
 
-        <ReviewForm teams={teamsWithArtifacts} />
+        <ReviewForm allTeams={allTeams} reviewPool={reviewPool} />
       </Container>
     </>
   );

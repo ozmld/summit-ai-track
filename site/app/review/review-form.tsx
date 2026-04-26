@@ -78,7 +78,13 @@ function shuffledPool(pool: ReviewTeam[], mySlug: string, name: string) {
   return arr;
 }
 
-export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
+export function ReviewForm({
+  allTeams,
+  reviewPool,
+}: {
+  allTeams: ReviewTeam[];
+  reviewPool: ReviewTeam[];
+}) {
   const [mySlug, setMySlug] = useState<string>("");
   const [myName, setMyName] = useState<string>("");
   const [locked, setLocked] = useState(false);
@@ -90,8 +96,8 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
 
   const pool = useMemo(() => {
     if (!locked || !mySlug || !myName.trim()) return [];
-    return shuffledPool(teams, mySlug, myName);
-  }, [locked, mySlug, myName, teams]);
+    return shuffledPool(reviewPool, mySlug, myName);
+  }, [locked, mySlug, myName, reviewPool]);
 
   const visibleCount = Math.min(BASE_COUNT + extraCount, pool.length);
   const targets = pool.slice(0, visibleCount);
@@ -124,7 +130,7 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
       const payload = {
         reviewerName: myName.trim(),
         reviewerTeamSlug: mySlug,
-        reviewerTeamName: teams.find((t) => t.slug === mySlug)?.name ?? "",
+        reviewerTeamName: allTeams.find((t) => t.slug === mySlug)?.name ?? "",
         reviews: targets.map((t) => ({
           targetSlug: t.slug,
           targetName: t.name,
@@ -169,7 +175,7 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
               onChange={(e) => setMySlug(e.target.value)}
             >
               <option value="">— выберите —</option>
-              {teams.map((t) => (
+              {allTeams.map((t) => (
                 <option key={t.slug} value={t.slug}>
                   {t.name}
                 </option>
@@ -218,7 +224,7 @@ export function ReviewForm({ teams }: { teams: ReviewTeam[] }) {
   }
 
   // --- STEP 2: review ---
-  const myTeamName = teams.find((t) => t.slug === mySlug)?.name ?? "";
+  const myTeamName = allTeams.find((t) => t.slug === mySlug)?.name ?? "";
   return (
     <section className="space-y-8">
       <div className="border border-[var(--rule)] p-5 bg-[var(--paper-2)]/40">
