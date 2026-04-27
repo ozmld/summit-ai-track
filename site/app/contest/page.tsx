@@ -1,12 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Container, PageHeader } from "@/components/section";
-import { tasks } from "@/lib/data/tasks";
+import { Container, PageHeader, Panel } from "@/components/section";
 
-const subjectLabel: Record<string, string> = {
-  math: "Математика",
-  phys: "Физика",
-  ai: "ИИ / ML",
+const CONTEST_URL = "https://contest.yandex.ru/contest/93693/enter";
+
+export const metadata = {
+  title: "Контест · Практика с ИИ-ассистентами",
 };
 
 export default function ContestPage() {
@@ -14,87 +12,55 @@ export default function ContestPage() {
     <>
       <PageHeader
         number="IV"
-        eyebrow="Практика дня 1"
-        title="Контест на 12 задач"
-        lead="Участники решали задачи с помощью LLM. В четырёх задачах спрятаны ловушки (prompt injection) — чтобы увидеть, как ИИ начинает галлюцинировать, если слепо ему доверять."
+        eyebrow="Практика Дня 1"
+        title="Контест: практика с ИИ-ассистентами"
+        lead="12 задач по математике, физике и ИИ, часть из них с «ловушками» для LLM. Учителя решают с помощью ChatGPT / DeepSeek / Gemini и смотрят, где модель помогает, а где уверенно галлюцинирует."
       />
 
-      <Container className="py-10">
-        <div className="flex flex-wrap items-center gap-3 border-b border-[var(--rule)] pb-8 mb-10">
-          <Link href="/leaderboard" className="btn btn-accent">
-            Лидерборд и анализ →
-          </Link>
-          <a
-            href="/contest/tasks_with_traps.md"
-            target="_blank"
-            className="btn"
-          >
-            Полный разбор (markdown)
-          </a>
-          <a
-            href="/contest/easy_tasks.md"
-            target="_blank"
-            className="btn"
-          >
-            Разминочные задачи
-          </a>
-        </div>
+      <Container className="py-12">
+        <div className="grid gap-0 md:grid-cols-[2fr_1fr]">
+          <Panel className="-ml-px -mt-px">
+            <div className="eyebrow">Площадка</div>
+            <h2 className="mt-2 display text-3xl leading-tight">
+              Яндекс.Контест
+            </h2>
+            <p className="mt-4 serif text-lg leading-snug">
+              Контест живёт на платформе Яндекс.Контест — там собраны все
+              условия, автопроверка ответов и персональные результаты. Вход
+              по логину Яндекса.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <a
+                href={CONTEST_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-accent"
+              >
+                Открыть контест ↗
+              </a>
+              <Link href="/leaderboard" className="btn">
+                Общий лидерборд →
+              </Link>
+            </div>
+          </Panel>
 
-        <div className="grid gap-0 md:grid-cols-2 lg:grid-cols-3">
-          {tasks.map((t, i) => (
-            <article
-              key={t.code}
-              className="border border-[var(--rule)] -ml-px -mt-px p-5"
-            >
-              <div className="flex items-baseline justify-between border-b border-[var(--ink)] pb-2">
-                <div className="flex items-baseline gap-3">
-                  <span className="num text-2xl text-[var(--accent)]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <div className="eyebrow">{subjectLabel[t.subject]}</div>
-                    <div className="mono text-xs mt-0.5">{t.code}</div>
-                  </div>
-                </div>
-                {t.hasTrap && (
-                  <span className="tag tag-filled">ЛОВУШКА</span>
-                )}
-              </div>
-              <h3 className="mt-4 serif text-lg leading-tight">{t.title}</h3>
-              {t.hasTrap && t.trapKind && (
-                <p className="mt-1 text-xs italic text-[var(--ink-muted)]">
-                  ловушка: {t.trapKind}
-                </p>
-              )}
-              <div className="mt-4 border border-[var(--rule)] bg-white overflow-hidden">
-                <Image
-                  src={t.image}
-                  alt={`Условие ${t.code}`}
-                  width={800}
-                  height={500}
-                  className="h-auto w-full object-contain"
-                />
-              </div>
-              <div className="mt-3 flex gap-4 text-xs">
-                <a
-                  href={t.image}
-                  target="_blank"
-                  className="link-underline"
-                >
-                  открыть картинку
-                </a>
-                {t.code === "МЛ-3" && (
-                  <a
-                    href="/contest/ai_3.csv"
-                    target="_blank"
-                    className="link-underline"
-                  >
-                    csv с инъекцией
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
+          <Panel className="-ml-px -mt-px">
+            <div className="eyebrow">В цифрах</div>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li className="flex items-baseline gap-3">
+                <span className="num text-3xl text-[var(--accent)]">12</span>
+                <span>задач</span>
+              </li>
+              <li className="flex items-baseline gap-3">
+                <span className="num text-3xl text-[var(--accent)]">3</span>
+                <span>направления: математика, физика, ИИ/ML</span>
+              </li>
+              <li className="flex items-baseline gap-3">
+                <span className="num text-3xl text-[var(--accent)]">4</span>
+                <span>задачи содержат ловушки для LLM</span>
+              </li>
+            </ul>
+          </Panel>
         </div>
       </Container>
     </>

@@ -56,12 +56,14 @@ export const days: Day[] = [
           "Учителя делятся на команды и решают 12 олимпиадных задач разных типов (физика, математика, логика, алгоритмы). В часть задач специально зашиты «ловушки» для LLM — типовые промпты, на которых модель уходит в галлюцинации. Цель — прочувствовать, где ИИ помогает, а где нет.",
         materials: [
           {
-            label: "Условия контеста (CSV)",
-            href: "/contest/ai_3.csv",
+            label: "Яндекс.Контест",
+            href: "https://contest.yandex.ru/contest/93693/enter",
+            primary: true,
+            external: true,
           },
           {
-            label: "Задачи с ловушками для LLM",
-            href: "/contest/tasks_with_traps.md",
+            label: "Лидерборд",
+            href: "/leaderboard",
           },
         ],
       },

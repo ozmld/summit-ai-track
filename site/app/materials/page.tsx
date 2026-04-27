@@ -21,12 +21,13 @@ const byDay: { day: number; title: string; items: Material[] }[] = [
         primary: true,
       },
       {
-        label: "Задачи контеста (CSV)",
-        href: "/contest/ai_3.csv",
+        label: "Яндекс.Контест (12 задач)",
+        href: "https://contest.yandex.ru/contest/93693/enter",
+        external: true,
       },
       {
-        label: "Задачи с ловушками для LLM (MD)",
-        href: "/contest/tasks_with_traps.md",
+        label: "Лидерборд",
+        href: "/leaderboard",
       },
     ],
   },
