@@ -3,7 +3,7 @@ import { Container, Panel, SectionHead } from "@/components/section";
 import { teams } from "@/lib/data/teams";
 import { juries } from "@/lib/data/juries";
 import { site } from "@/lib/site";
-import { day2Pairs } from "@/lib/data/day2";
+import { days } from "@/lib/data/days";
 
 export default function Home() {
   const totalMembers = teams.reduce((s, t) => s + t.members.length, 0);
@@ -37,8 +37,8 @@ export default function Home() {
                 <Link href="/project" className="btn btn-accent">
                   Читать ТЗ проекта →
                 </Link>
-                <Link href="/days/2" className="btn">
-                  План Дня 2
+                <Link href="/materials" className="btn">
+                  Материалы саммита
                 </Link>
                 <Link href="/teams" className="btn">
                   Моя команда
@@ -73,57 +73,80 @@ export default function Home() {
 
       <section className="border-b-2 border-[var(--ink)] bg-[var(--paper-2)]/40">
         <Container className="py-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
+          <div className="flex items-baseline justify-between border-b-2 border-[var(--ink)] pb-4 mb-6">
             <div>
-              <div className="eyebrow">Сегодняшний выпуск</div>
-              <div className="section-number mt-2">№ 02</div>
-              <h2 className="display text-4xl sm:text-5xl mt-2">
-                День 2.{" "}
+              <div className="eyebrow">Программа</div>
+              <h2 className="display text-4xl sm:text-5xl mt-1">
+                Три дня,{" "}
                 <span className="display-italic text-[var(--accent)]">
-                  Инструменты и методика
+                  семь пар
                 </span>
+                , один модуль на команду
               </h2>
-              <p className="serif italic text-[var(--ink-muted)] mt-4">
-                25 апреля · четыре пары подряд · к вечеру у всех 8 команд
-                готовы Разделы 0–2 их модуля.
-              </p>
-              <Link href="/days/2" className="btn btn-accent mt-6">
-                Открыть план дня →
-              </Link>
             </div>
-            <ol className="border-t border-[var(--ink)]">
-              {day2Pairs.map((p, i) => (
-                <li
-                  key={p.slug}
-                  className="grid grid-cols-[50px_1fr_80px] gap-4 items-baseline border-b border-[var(--rule-soft)] py-3"
-                >
-                  <span className="num text-2xl text-[var(--accent)]">
-                    П{i + 1}
-                  </span>
-                  <span>
-                    <Link
-                      href={`/days/2#${p.slug}`}
-                      className="serif text-lg leading-tight link-underline"
+            <Link href="/materials" className="link-underline hidden sm:block">
+              Все материалы →
+            </Link>
+          </div>
+          <div className="grid gap-0 lg:grid-cols-3">
+            {days.map((d) => (
+              <div
+                key={d.number}
+                className="border border-[var(--rule)] -ml-px -mt-px bg-[var(--paper)] p-6"
+              >
+                <div className="flex items-baseline justify-between border-b border-[var(--ink)] pb-3">
+                  <div className="eyebrow">{d.date.split(" · ")[0]}</div>
+                  <Link
+                    href={`/days/${d.number}`}
+                    className="num text-3xl text-[var(--accent)] link-underline"
+                  >
+                    Д{d.number}
+                  </Link>
+                </div>
+                <h3 className="mt-4 display text-2xl leading-tight">
+                  {d.title.split(". ")[1] ?? d.title}
+                </h3>
+                <ol className="mt-5 space-y-3">
+                  {d.pairs.map((p, i) => (
+                    <li
+                      key={p.slug}
+                      className="grid grid-cols-[30px_1fr_60px] gap-2 items-baseline border-b border-[var(--rule-soft)] pb-2"
                     >
-                      {p.title}
-                    </Link>
-                    <div className="text-xs text-[var(--ink-muted)] mt-1">
-                      {p.speakers}
-                    </div>
-                  </span>
-                  <span className="text-right mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
-                    {p.minutes} мин
-                  </span>
-                </li>
-              ))}
-            </ol>
+                      <span className="num text-[var(--accent)]">
+                        П{i + 1}
+                      </span>
+                      <span>
+                        <Link
+                          href={`/days/${d.number}#${p.slug}`}
+                          className="serif text-base leading-tight link-underline"
+                        >
+                          {p.title}
+                        </Link>
+                        <div className="text-[11px] text-[var(--ink-muted)] mt-0.5">
+                          {p.speakers}
+                        </div>
+                      </span>
+                      <span className="text-right mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">
+                        {p.minutes} мин
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+                <Link
+                  href={`/days/${d.number}`}
+                  className="mt-5 inline-block link-underline text-sm"
+                >
+                  Открыть день {d.number} →
+                </Link>
+              </div>
+            ))}
           </div>
         </Container>
       </section>
 
       <section className="border-b border-[var(--ink)]">
         <Container className="py-12">
-          <div className="eyebrow mb-3">Учителю: три шага на сегодня</div>
+          <div className="eyebrow mb-3">Учителю: три шага</div>
           <div className="grid gap-0 sm:grid-cols-3">
             {[
               {
@@ -142,9 +165,9 @@ export default function Home() {
               },
               {
                 n: "03",
-                title: "Посмотрите план дня",
-                body: "Четыре пары: применение ИИ, ML-инженерия, математика с разбором задач, командная работа. В конце дня — готовые Разделы 0–2.",
-                cta: "План Дня 2 →",
+                title: "Посмотрите программу",
+                body: "Три дня, семь пар: тренды и контест, ML-практикум и Gandalf, генеративные модели и защита проектов. У каждой пары — свои материалы.",
+                cta: "Программа саммита →",
                 href: "/days/2",
               },
             ].map((s) => (

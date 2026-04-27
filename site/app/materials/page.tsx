@@ -2,136 +2,199 @@ import Link from "next/link";
 import { Container, PageHeader, Panel } from "@/components/section";
 import { site } from "@/lib/site";
 
+type Material = {
+  label: string;
+  href: string;
+  external?: boolean;
+  primary?: boolean;
+  note?: string;
+};
+
+const byDay: { day: number; title: string; items: Material[] }[] = [
+  {
+    day: 1,
+    title: "Тренды и контест",
+    items: [
+      {
+        label: "Лекция Власова: «ИИ сегодня» (PDF)",
+        href: "/lectures/lec1-trends.pdf",
+        primary: true,
+      },
+      {
+        label: "Задачи контеста (CSV)",
+        href: "/contest/ai_3.csv",
+      },
+      {
+        label: "Задачи с ловушками для LLM (MD)",
+        href: "/contest/tasks_with_traps.md",
+      },
+    ],
+  },
+  {
+    day: 2,
+    title: "Инструменты, ML и Gandalf",
+    items: [
+      {
+        label: "Д2П1. Применение ИИ — Исупов (PDF)",
+        href: "/lectures/lec2-applications.pdf",
+      },
+      {
+        label: "Д2П2. ML-практикум в Colab",
+        href: "https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/d2p2_student.ipynb",
+        external: true,
+        primary: true,
+      },
+      {
+        label: "Д2П2. Скачать d2p2_student.ipynb",
+        href: "/notebooks/d2p2_student.ipynb",
+      },
+      {
+        label: "Д2П2. Заполненный d2p2_filled.ipynb",
+        href: "https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/d2p2_filled.ipynb",
+        external: true,
+      },
+      {
+        label: "Д2П2. Датасет students_pass.csv",
+        href: "/datasets/students_pass.csv",
+      },
+      {
+        label: "Д2П3. Игра Gandalf · Lakera",
+        href: "https://gandalf.lakera.ai",
+        external: true,
+      },
+      {
+        label: "Д2П3. Слайды Игнатьева",
+        href: "#",
+        note: "скоро",
+      },
+    ],
+  },
+  {
+    day: 3,
+    title: "Генеративные модели и защита",
+    items: [
+      {
+        label: "Д3П1. Открыть Власова в Colab (CV / NLP / LM / Diffusion)",
+        href: "https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/talants_summit_ai.ipynb",
+        external: true,
+        primary: true,
+      },
+      {
+        label: "Д3П1. Скачать talants_summit_ai.ipynb",
+        href: "/notebooks/talants_summit_ai.ipynb",
+      },
+    ],
+  },
+];
+
+function MatButton({ m }: { m: Material }) {
+  const cls = m.primary ? "btn btn-accent" : "btn";
+  if (m.note === "скоро") {
+    return (
+      <span className="btn opacity-50 cursor-not-allowed">
+        {m.label} · скоро
+      </span>
+    );
+  }
+  if (m.external) {
+    return (
+      <a href={m.href} target="_blank" rel="noreferrer" className={cls}>
+        {m.label} ↗
+      </a>
+    );
+  }
+  return (
+    <a href={m.href} target="_blank" className={cls}>
+      {m.label} ↓
+    </a>
+  );
+}
+
 export default function MaterialsPage() {
   return (
     <>
       <PageHeader
         number="VII"
         eyebrow="Ресурсы"
-        title="Материалы трека"
-        lead="Всё, что нужно для работы команд: гайд, шаблон модуля, задачи контеста, PDF лекций и ноутбуки."
+        title="Материалы саммита"
+        lead="Все материалы трека, сгруппированные по дням. Плюс блок про проект и командные папки Drive."
       />
-      <Container className="py-12">
-        <div className="grid gap-0 md:grid-cols-2">
-          <Panel className="-ml-px -mt-px">
-            <div className="eyebrow">§ 1</div>
-            <h2 className="mt-2 display text-3xl">Папки команд на Drive</h2>
-            <p className="mt-3 text-sm leading-relaxed">
-              У каждой из 8 команд — своя папка с правом редактирования.
-              Внутри: гайд для учителей, шаблон модуля и папка{" "}
-              <code className="mono text-xs">resources/</code> для
-              дополнительных файлов.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <Link href="/teams" className="btn btn-accent">
-                Найти свою команду →
-              </Link>
-              <a
-                href={site.driveUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="btn"
-              >
-                Общий Drive саммита ↗
-              </a>
-            </div>
-          </Panel>
 
-          <Panel className="-ml-px -mt-px">
-            <div className="eyebrow">§ 2</div>
-            <h2 className="mt-2 display text-3xl">Гайд и шаблон модуля</h2>
-            <p className="mt-3 text-sm leading-relaxed">
-              Короткая инструкция: что куда заливать, когда что сдавать,
-              как будут оценивать. Шаблон — заготовка всех пяти разделов.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <Link href="/guide" className="btn btn-accent">
-                Гайд для учителей →
-              </Link>
-              <Link href="/module-template" className="btn">
-                Шаблон модуля →
-              </Link>
-              <Link href="/project" className="btn">
-                ТЗ полностью →
+      <Container className="py-10 space-y-14">
+        {byDay.map((d) => (
+          <section key={d.day}>
+            <div className="flex items-baseline justify-between border-b-2 border-[var(--ink)] pb-3 mb-5">
+              <div className="flex items-baseline gap-4">
+                <span className="num text-5xl text-[var(--accent)]">
+                  Д{d.day}
+                </span>
+                <h2 className="display text-3xl leading-tight">{d.title}</h2>
+              </div>
+              <Link href={`/days/${d.day}`} className="link-underline text-sm">
+                План дня →
               </Link>
             </div>
-          </Panel>
-
-          <Panel className="-ml-px -mt-px">
-            <div className="eyebrow">§ 3</div>
-            <h2 className="mt-2 display text-3xl">Лекции и ноутбуки</h2>
-            <p className="mt-3 text-sm leading-relaxed">
-              Слайды по парам и Colab-ноутбуки к ML-блоку Д2П2.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <a
-                href="/lectures/lec1-trends.pdf"
-                target="_blank"
-                className="btn"
-              >
-                Д1П1. Тренды (PDF)
-              </a>
-              <a
-                href="/lectures/lec2-applications.pdf"
-                target="_blank"
-                className="btn"
-              >
-                Д2П1. Применение (PDF)
-              </a>
-              <a
-                href="https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/d2p2_student.ipynb"
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-accent"
-              >
-                Д2П2. Открыть в Colab ↗
-              </a>
-              <a
-                href="/notebooks/d2p2_student.ipynb"
-                target="_blank"
-                className="btn"
-              >
-                d2p2_student.ipynb ↓
-              </a>
-              <a
-                href="/datasets/students_pass.csv"
-                target="_blank"
-                className="btn"
-              >
-                students_pass.csv ↓
-              </a>
-              <Link href="/lectures" className="btn">
-                Все лекции →
-              </Link>
+            <div className="flex flex-wrap gap-2">
+              {d.items.map((m) => (
+                <MatButton key={m.label} m={m} />
+              ))}
             </div>
-          </Panel>
+          </section>
+        ))}
 
-          <Panel className="-ml-px -mt-px">
-            <div className="eyebrow">§ 4</div>
-            <h2 className="mt-2 display text-3xl">Чек-лист учителю</h2>
-            <p className="mt-3 text-sm leading-relaxed">
-              Что берём с саммита домой:
-            </p>
-            <ul className="mt-4 space-y-2 text-sm serif">
-              <li className="flex gap-3">
-                <span className="num text-[var(--accent)]">A</span>
-                <span>готовый модуль своей команды (задача + два гайда);</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="num text-[var(--accent)]">B</span>
-                <span>модули других 7 команд — 8 штук в сумме;</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="num text-[var(--accent)]">C</span>
-                <span>ноутбуки ML-практикума и PDF лекций;</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="num text-[var(--accent)]">D</span>
-                <span>записи защит трёх отобранных модулей.</span>
-              </li>
-            </ul>
-          </Panel>
-        </div>
+        <section className="pt-4">
+          <div className="border-b-2 border-[var(--ink)] pb-3 mb-5">
+            <div className="eyebrow">Проект</div>
+            <h2 className="display text-3xl leading-tight">
+              Папки команд, гайд и шаблон модуля
+            </h2>
+          </div>
+          <div className="grid gap-0 md:grid-cols-2">
+            <Panel className="-ml-px -mt-px">
+              <div className="eyebrow">§ 1</div>
+              <h3 className="mt-2 display text-2xl">Папки команд на Drive</h3>
+              <p className="mt-3 text-sm leading-relaxed">
+                У каждой из 8 команд — своя папка с правом редактирования.
+                Внутри: гайд для учителей, шаблон модуля и папка{" "}
+                <code className="mono text-xs">resources/</code> для
+                дополнительных файлов.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <Link href="/teams" className="btn btn-accent">
+                  Найти свою команду →
+                </Link>
+                <a
+                  href={site.driveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn"
+                >
+                  Общий Drive саммита ↗
+                </a>
+              </div>
+            </Panel>
+
+            <Panel className="-ml-px -mt-px">
+              <div className="eyebrow">§ 2</div>
+              <h3 className="mt-2 display text-2xl">Гайд и шаблон модуля</h3>
+              <p className="mt-3 text-sm leading-relaxed">
+                Короткая инструкция: что куда заливать, когда что сдавать, как
+                будут оценивать. Шаблон — заготовка всех пяти разделов.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <Link href="/guide" className="btn btn-accent">
+                  Гайд для учителей →
+                </Link>
+                <Link href="/module-template" className="btn">
+                  Шаблон модуля →
+                </Link>
+                <Link href="/project" className="btn">
+                  ТЗ полностью →
+                </Link>
+              </div>
+            </Panel>
+          </div>
+        </section>
       </Container>
     </>
   );

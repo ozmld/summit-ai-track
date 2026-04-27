@@ -27,12 +27,12 @@ export const lectures: Lecture[] = [
   {
     slug: "d2p1-applications",
     code: "Д2 · П1",
-    title: "Применение ИИ + ВсОШ по ИИ",
-    speaker: "Матвей Исупов · Артур Игнатьев",
+    title: "Применение ИИ в жизни и в классе",
+    speaker: "Матвей Исупов",
     day: 2,
     minutes: 60,
     summary:
-      "Две половины: применение ИИ в работе учителя и инструменты (25 мин, Исупов) + что такое ВсОШ по ИИ, структура и 3 примера задач (30 мин, Игнатьев). В конце — объявление проекта.",
+      "Где ИИ используется уже сегодня, какими инструментами пользоваться учителю (ChatGPT, DeepSeek, Colab, Gemini), ограничения моделей и типичные ошибки промптинга.",
     pdf: "/lectures/lec2-applications.pdf",
     status: "ready",
   },
@@ -44,42 +44,54 @@ export const lectures: Lecture[] = [
     day: 2,
     minutes: 60,
     summary:
-      "Учителя с ноутбуками, у каждого открыт d2p2_student.ipynb в Colab. За час обучаем модель, которая предсказывает, сдаст ли школьник ОГЭ по математике. Три модели (LogReg, KNN, RandomForest) одним sklearn-API, метрики, confusion matrix, переобучение глазами, челлендж.",
+      "Учителя с ноутбуками в Colab обучают модель, предсказывающую, сдаст ли школьник ОГЭ. Три модели (LogReg, KNN, RandomForest) одним sklearn-API, train/test split, classification_report, confusion matrix, переобучение глазами, челлендж побить baseline.",
     notebooks: [
       {
-        label: "Открыть в Colab ↗",
+        label: "Открыть d2p2_student.ipynb в Colab",
         href: "https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/d2p2_student.ipynb",
       },
       { label: "Скачать d2p2_student.ipynb", href: "/notebooks/d2p2_student.ipynb" },
       { label: "Датасет students_pass.csv", href: "/datasets/students_pass.csv" },
       {
-        label: "Открыть d2p2_filled.ipynb в Colab (разбор) ↗",
+        label: "Заполненный d2p2_filled.ipynb (разбор)",
         href: "https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/d2p2_filled.ipynb",
       },
-      { label: "Скачать d2p2_filled.ipynb", href: "/notebooks/d2p2_filled.ipynb" },
     ],
     status: "ready",
   },
   {
-    slug: "d2p3-math-vosh",
+    slug: "d2p3-vosh-gandalf",
     code: "Д2 · П3",
-    title: "Математика в ИИ + разбор задач ВсОШ",
-    speaker: "Максим Бидва · Матвей Исупов",
+    title: "ВсОШ по ИИ + Gandalf",
+    speaker: "Артур Игнатьев",
     day: 2,
     minutes: 90,
     summary:
-      "Чистая математика (теорвер + Байес, векторы и матрицы, градиент) с numpy-иллюстрациями, затем живой разбор 3 эталонных задач ВсОШ.",
+      "Как устроена Всероссийская олимпиада по ИИ, структура этапов, что ценит жюри, разбор эталонных задач. Во второй половине — интерактивная игра Gandalf от Lakera: учителя пытаются уговорить ИИ-агента выдать секретный пароль, проходя уровни один за другим.",
+    notebooks: [
+      { label: "Gandalf · Lakera", href: "https://gandalf.lakera.ai" },
+    ],
     status: "soon",
   },
   {
-    slug: "d2p4-team-work",
-    code: "Д2 · П4",
-    title: "Командная работа над модулем",
-    speaker: "Все менторы",
-    day: 2,
-    minutes: 60,
+    slug: "d3p1-generative",
+    code: "Д3 · П1",
+    title: "Генеративные и нейросетевые модели: живой интерактив",
+    speaker: "Алексей Власов",
+    day: 3,
+    minutes: 90,
     summary:
-      "Команды пишут Разделы 0–2 своего модуля в Google Doc. Менторы закреплены за столами и отвечают на вопросы.",
+      "Один ноутбук, четыре демо: ResNet18 и карты признаков, sentence embeddings + t-SNE, distilgpt2/Qwen с параметрами температуры и top-k, диффузия DDPM на CIFAR10. Учителя запускают всё у себя в Colab на ходу.",
+    notebooks: [
+      {
+        label: "Открыть talants_summit_ai.ipynb в Colab",
+        href: "https://colab.research.google.com/github/ozmld/summit-ai-track/blob/main/site/public/notebooks/talants_summit_ai.ipynb",
+      },
+      {
+        label: "Скачать talants_summit_ai.ipynb",
+        href: "/notebooks/talants_summit_ai.ipynb",
+      },
+    ],
     status: "ready",
   },
 ];

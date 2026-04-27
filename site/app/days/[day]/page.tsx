@@ -1,31 +1,59 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Container, PageHeader, Panel } from "@/components/section";
-import { day2Pairs } from "@/lib/data/day2";
+import { days, getDay } from "@/lib/data/days";
 
-export const metadata = {
-  title: "День 2 · Инструменты и методика",
-};
+export function generateStaticParams() {
+  return days.map((d) => ({ day: String(d.number) }));
+}
 
-export default function Day2Page() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ day: string }>;
+}) {
+  const { day } = await params;
+  const d = getDay(Number(day));
+  if (!d) return { title: "День не найден" };
+  return { title: d.title };
+}
+
+const roman = ["", "I", "II", "III"];
+
+export default async function DayPage({
+  params,
+}: {
+  params: Promise<{ day: string }>;
+}) {
+  const { day } = await params;
+  const n = Number(day);
+  const d = getDay(n);
+  if (!d) notFound();
+
+  const prev = getDay(n - 1);
+  const next = getDay(n + 1);
+
   return (
     <>
       <PageHeader
-        number="II"
-        eyebrow="25 апреля 2026 · Астана"
-        title="День 2. Инструменты и методика"
-        lead="Четыре пары подряд: применение ИИ и олимпиады, инженерия ML, математика и разбор задач ВсОШ, командная работа над модулем."
+        number={roman[d.number]}
+        eyebrow={d.date}
+        title={d.title}
+        lead={d.lead}
       />
 
       <Container className="pb-10 pt-8">
         <div className="border-t-2 border-[var(--ink)]">
-          {day2Pairs.map((p, idx) => (
+          {d.pairs.map((p, idx) => (
             <article
               key={p.slug}
               id={p.slug}
               className="grid gap-8 lg:grid-cols-[220px_1fr] border-b border-[var(--rule)] py-10"
             >
               <header>
-                <div className="section-number">№ 0{idx + 1}</div>
+                <div className="section-number">
+                  № {String(idx + 1).padStart(2, "0")}
+                </div>
                 <div className="mono uppercase tracking-widest text-xs text-[var(--ink-muted)] mt-3">
                   {p.code} · {p.minutes} мин
                 </div>
@@ -57,7 +85,8 @@ export default function Day2Page() {
                         ) : m.href.startsWith("/") &&
                           !m.href.endsWith(".pdf") &&
                           !m.href.endsWith(".ipynb") &&
-                          !m.href.endsWith(".csv") ? (
+                          !m.href.endsWith(".csv") &&
+                          !m.href.endsWith(".md") ? (
                           <Link
                             key={m.label}
                             href={m.href}
@@ -80,21 +109,6 @@ export default function Day2Page() {
                     </div>
                   </div>
                 )}
-
-                <div className="mt-8 grid gap-6 sm:grid-cols-2">
-                  {p.teamTask && (
-                    <Panel>
-                      <div className="eyebrow mb-3">Что делают команды</div>
-                      <p className="text-sm leading-relaxed">{p.teamTask}</p>
-                    </Panel>
-                  )}
-                  {p.deliverable && (
-                    <Panel>
-                      <div className="eyebrow mb-3">Что сдают к концу пары</div>
-                      <p className="text-sm leading-relaxed">{p.deliverable}</p>
-                    </Panel>
-                  )}
-                </div>
               </div>
             </article>
           ))}
@@ -103,32 +117,35 @@ export default function Day2Page() {
 
       <Container className="py-10">
         <div className="border-t-2 border-[var(--ink)] pt-8 grid gap-8 lg:grid-cols-[2fr_1fr]">
-          <div>
-            <div className="eyebrow mb-3">Итог дня</div>
-            <p className="serif text-xl leading-snug">
-              У всех 8 команд в Google Doc заполнены{" "}
-              <span className="text-[var(--accent)]">Разделы 0–2</span>:
-              название, условие задачи, решение и ответ.
-            </p>
+          <div className="flex flex-wrap gap-3">
+            {prev && (
+              <Link href={`/days/${prev.number}`} className="btn">
+                ← {prev.title.split(".")[0]}
+              </Link>
+            )}
+            {next && (
+              <Link href={`/days/${next.number}`} className="btn btn-accent">
+                {next.title.split(".")[0]} →
+              </Link>
+            )}
           </div>
           <Panel>
-            <div className="eyebrow mb-3">Полезное на день</div>
+            <div className="eyebrow mb-3">Другие дни</div>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/project" className="link-underline">
-                  ТЗ командного проекта →
-                </Link>
-              </li>
-              <li>
-                <Link href="/lectures" className="link-underline">
-                  Материалы лекций →
-                </Link>
-              </li>
-              <li>
-                <Link href="/teams" className="link-underline">
-                  Команды и папки на Drive →
-                </Link>
-              </li>
+              {days.map((x) => (
+                <li key={x.number}>
+                  <Link
+                    href={`/days/${x.number}`}
+                    className={
+                      x.number === d.number
+                        ? "text-[var(--accent)]"
+                        : "link-underline"
+                    }
+                  >
+                    День {x.number}. {x.title.split(". ")[1] ?? x.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </Panel>
         </div>

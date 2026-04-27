@@ -33,10 +33,11 @@ export const metadata: Metadata = {
 
 const nav = [
   { href: "/", label: "Главная" },
-  { href: "/days/2", label: "Сегодня · Д2" },
+  { href: "/days/1", label: "Д1" },
+  { href: "/days/2", label: "Д2" },
+  { href: "/days/3", label: "Д3" },
   { href: "/teams", label: "Команды" },
   { href: "/project", label: "Проект" },
-  { href: "/lectures", label: "Лекции" },
   { href: "/materials", label: "Материалы" },
 ];
 
