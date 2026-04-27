@@ -56,14 +56,13 @@ const byDay: { day: number; title: string; items: Material[] }[] = [
         href: "/datasets/students_pass.csv",
       },
       {
+        label: "Д2П3. Слайды Игнатьева «Контур» (PDF)",
+        href: "/lectures/d2p3-ignatiev.pdf",
+      },
+      {
         label: "Д2П3. Игра Gandalf · Lakera",
         href: "https://gandalf.lakera.ai",
         external: true,
-      },
-      {
-        label: "Д2П3. Слайды Игнатьева",
-        href: "#",
-        note: "скоро",
       },
     ],
   },

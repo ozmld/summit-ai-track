@@ -68,10 +68,11 @@ export const lectures: Lecture[] = [
     minutes: 90,
     summary:
       "Как устроена Всероссийская олимпиада по ИИ, структура этапов, что ценит жюри, разбор эталонных задач. Во второй половине — интерактивная игра Gandalf от Lakera: учителя пытаются уговорить ИИ-агента выдать секретный пароль, проходя уровни один за другим.",
+    pdf: "/lectures/d2p3-ignatiev.pdf",
     notebooks: [
       { label: "Gandalf · Lakera", href: "https://gandalf.lakera.ai" },
     ],
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "d3p1-generative",
