@@ -24,10 +24,7 @@ const byDay: { day: number; title: string; items: Material[] }[] = [
         label: "Яндекс.Контест (12 задач)",
         href: "https://contest.yandex.ru/contest/93693/enter",
         external: true,
-      },
-      {
-        label: "Лидерборд",
-        href: "/leaderboard",
+        primary: true,
       },
     ],
   },

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Container, PageHeader, Panel } from "@/components/section";
 
 const CONTEST_URL = "https://contest.yandex.ru/contest/93693/enter";
@@ -38,9 +37,6 @@ export default function ContestPage() {
               >
                 Открыть контест ↗
               </a>
-              <Link href="/leaderboard" className="btn">
-                Общий лидерборд →
-              </Link>
             </div>
           </Panel>
 

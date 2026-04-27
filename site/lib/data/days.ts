@@ -61,10 +61,6 @@ export const days: Day[] = [
             primary: true,
             external: true,
           },
-          {
-            label: "Лидерборд",
-            href: "/leaderboard",
-          },
         ],
       },
     ],
